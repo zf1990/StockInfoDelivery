@@ -8,9 +8,8 @@ public class SkunkApp {
 		
 		//Create new Dice instance 
 		Dice dice = new Dice();
-		dice.roll(); //invoke roll
 		
 		//Print out last roll
-		StdOut.println(dice.getLastRoll());
+		StdOut.println(dice.toString());
 	}
 }
