@@ -11,6 +11,6 @@ public class SkunkApp {
 		dice.roll(); //invoke roll
 		
 		//Print out last roll
-		StdOut.println(dice.getLastRoll());
+		StdOut.println(dice.getLastRoll()); //quick test
 	}
 }
