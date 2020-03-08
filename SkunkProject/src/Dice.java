@@ -36,6 +36,18 @@ public class Dice
 	{
 		this.die1 = die1;
 		this.die2 = die2;
+		this.roll(die1, die2);
+	}
+	
+	//Get Method for getting Die 1 and Die 2
+	public Die getdie1()
+	{
+		return this.die1;
+	}
+	
+	public Die getdie2()
+	{
+		return this.die2;
 	}
 
 	// Instance methods can also be declared anywhere in body of class
@@ -56,6 +68,11 @@ public class Dice
 		this.lastRoll = die1.getLastRoll() + die2.getLastRoll();
 
 	}
+	
+	public void roll(Die d1, Die d2) //overloaded method for Roll()
+	{
+		this.lastRoll = die1.getLastRoll() + die2.getLastRoll();
+	}
 
 	// the following method converts the internals of
 	// this Dice object, and returns a descriptive String:
@@ -70,7 +87,7 @@ public class Dice
 
 	// static methods can go anywhere - but at end is one convention
 
-	public static final int NUM_TRIALS = 360;
+	public static final int NUM_TRIALS = 1; //360
 
 	public static void main(String[] args)
 	{

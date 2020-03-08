@@ -7,6 +7,12 @@ public class Die
 	{
 		this.roll();
 	}
+	
+	//Force the die to have a specific value for last roll
+	public Die(int rollNumber)
+	{
+		this.lastRoll = rollNumber;
+	}
 
 	public int getLastRoll() // getter or accessor method
 	{
