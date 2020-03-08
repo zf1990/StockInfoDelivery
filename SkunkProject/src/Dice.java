@@ -40,14 +40,14 @@ public class Dice
 	}
 	
 	//Get Method for getting Die 1 and Die 2
-	public Die getdie1()
+	public int getLastRolldie1()
 	{
-		return this.die1;
+		return this.die1.getLastRoll();
 	}
 	
-	public Die getdie2()
+	public int getLastRolldie2()
 	{
-		return this.die2;
+		return this.die2.getLastRoll();
 	}
 
 	// Instance methods can also be declared anywhere in body of class

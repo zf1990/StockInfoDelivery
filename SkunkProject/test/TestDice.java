@@ -12,9 +12,8 @@ public class TestDice {
 		Die d1 = new Die(6);
 		Die d2 = new Die();
 		Dice d = new Dice(d1, d2);
-		Die d1_test = d.getdie1();
 		int expected = 6;
-		assertThat(d1_test.getLastRoll(), is(expected));
+		assertThat( d.getLastRolldie1(), is(expected));
 	}
 	
 	//Test with pre-defined value of dice2 as 7
@@ -23,9 +22,8 @@ public class TestDice {
 			Die d1 = new Die();
 			Die d2 = new Die(7);
 			Dice d = new Dice(d1, d2);
-			Die d2_test = d.getdie2();
 			int expected = 7;
-			assertThat(d2_test.getLastRoll(), is(expected));
+			assertThat(d.getLastRolldie2(), is(expected));
 		}
 	
 	//Test with pre-defined value dice as 4 and 5
@@ -42,9 +40,7 @@ public class TestDice {
 	@Test
 	public void test_dice_roll_random() {
 		Dice d = new Dice();
-		Die d1 = d.getdie1();
-		Die d2 = d.getdie2();
-		int expected = d1.getLastRoll() + d2.getLastRoll();
+		int expected = d.getLastRolldie1() + d.getLastRolldie2();
 		assertThat(d.getLastRoll(), is(expected));
 	}
 
