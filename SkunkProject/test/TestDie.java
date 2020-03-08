@@ -13,11 +13,21 @@ public class TestDie
 		assertThat(d.getLastRoll(), is(expected));
 	}
 
+	//Fixed method so test would run
 	@Test
-	public void test()
+	public void test_die_roll_4()
 	{
-		Die d = new Die();
-		int expected = 3;
+		Die d = new Die(4);
+		int expected = 4;
+		assertThat(d.getLastRoll(), is(expected));
+	}
+	
+	//Added additional method
+	@Test
+	public void test_die_roll_6()
+	{
+		Die d = new Die(6);
+		int expected = 6;
 		assertThat(d.getLastRoll(), is(expected));
 	}
 
