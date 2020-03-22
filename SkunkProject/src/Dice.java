@@ -36,7 +36,7 @@ public class Dice
 	{
 		this.die1 = die1;
 		this.die2 = die2;
-		this.roll(die1, die2);
+		this.setLastRoll(die1.getLastRoll() + die2.getLastRoll());
 	}
 	
 	//Get Method for getting Die 1 and Die 2
@@ -69,9 +69,9 @@ public class Dice
 
 	}
 	
-	public void roll(Die d1, Die d2) //overloaded method for Roll()
+	public void setLastRoll(int RollValue) //set LastRoll value
 	{
-		this.lastRoll = die1.getLastRoll() + die2.getLastRoll();
+		this.lastRoll = RollValue;
 	}
 
 	// the following method converts the internals of
@@ -84,12 +84,25 @@ public class Dice
 	{
 		return "Dice with last roll: " + getLastRoll() + " => " + die1.getLastRoll() + " + " + die2.getLastRoll();
 	}
+	
+	//Check if the Dice contains Skunk/SkunkDeuce/DoubleSkunk
+	public String SkunkClassification()
+	{
+		if(die1.getLastRoll() == 1 && die2.getLastRoll() == 1)
+			return "DoubleSkunk";
+		else if ((die1.getLastRoll() == 1 && die2.getLastRoll() == 2) || (die1.getLastRoll() == 2 && die2.getLastRoll() == 1))
+			return "SkunkDeuce";
+		else if (die1.getLastRoll() == 1 || die2.getLastRoll() == 1)
+			return "Skunk";
+		else
+			return "NoSkunk";
+	}
 
 	// static methods can go anywhere - but at end is one convention
 
-	public static final int NUM_TRIALS = 1; //360
+	//public static final int NUM_TRIALS = 1; //360
 
-	public static void main(String[] args)
+	/*public static void main(String[] args)
 	{
 		// simulate repeated rolls of Dice, counting the many double skunks
 		
@@ -107,5 +120,5 @@ public class Dice
 
 		StdOut.println("Actual count: " + doubleSkunkCount);
 		StdOut.println("Expected count: " + (NUM_TRIALS / 36.0));
-	}
+	}*/
 }

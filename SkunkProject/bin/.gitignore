@@ -1,6 +1,4 @@
-/Dice.class
-/Die.class
-/Scratch.class
-/SkunkApp.class
-/TestDie.class
-/TestDice.class
+/Player.class
+/TestPlayer.class
+/SkunkGame.class
+/Turn.class

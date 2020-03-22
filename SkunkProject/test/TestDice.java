@@ -43,5 +43,14 @@ public class TestDice {
 		int expected = d.getLastRolldie1() + d.getLastRolldie2();
 		assertThat(d.getLastRoll(), is(expected));
 	}
+	
+	//Test with set LastRoll value
+		@Test
+		public void test_setLastRoll() {
+			Dice d = new Dice();
+			d.setLastRoll(10);
+			int expected = 10;
+			assertThat(d.getLastRoll(), is(expected));
+		}
 
 }
