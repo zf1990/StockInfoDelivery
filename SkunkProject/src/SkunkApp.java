@@ -48,11 +48,11 @@ public class SkunkApp {
 				dice.roll();
 				
 				//Get value for each Die
-				int die1Value = dice.getLastRolldie1();
-				int die2Value = dice.getLastRolldie2();
+				int die1_value = dice.getLastRolldie1();
+				int die2_value = dice.getLastRolldie2();
 				
 				//Record the roll value to Player
-				temp_player.recordRollValue(die1Value, die2Value);
+				temp_player.recordRollValue(die1_value, die2_value);
 				
 				//Check if the roll contain Skunk/Skunk Deuce/Double Skunk (This may be moved to other Classes)
 				String skunkClassification = dice.SkunkClassification();
@@ -66,7 +66,7 @@ public class SkunkApp {
 					temp_player.setGameScore(0);
 					
 					
-					gameUI.showMessage("Player " + temp_player.getPlayerName() + " rolled " + die1Value + " and " + die2Value + ": " + "Double Skunk");
+					gameUI.printUserRollValue(temp_player.getPlayerName(), die1_value, die2_value, skunkClassification);
 					break;
 				}
 				else if (skunkClassification.equals("SkunkDeuce"))
@@ -77,7 +77,7 @@ public class SkunkApp {
 					//Update Turn Score
 					playerTurn.setScore(0);
 					
-					gameUI.showMessage("Player " + temp_player.getPlayerName() + " rolled " + die1Value + " and " + die2Value + ": " + "Skunk Deuce");
+					gameUI.printUserRollValue(temp_player.getPlayerName(), die1_value, die2_value, skunkClassification);
 					break;
 				}
 				else if (skunkClassification.equals("Skunk"))
@@ -88,14 +88,17 @@ public class SkunkApp {
 					//Update Turn Score
 					playerTurn.setScore(0);
 					
-					gameUI.showMessage("Player " + temp_player.getPlayerName() + " rolled " + die1Value + " and " + die2Value + ": " + "Skunk");
+					gameUI.printUserRollValue(temp_player.getPlayerName(), die1_value, die2_value, skunkClassification);
 					break;
 				}
 				else
-					gameUI.showMessage("Player " + temp_player.getPlayerName() + " rolled " + die1Value + " and " + die2Value + ": " + dice.getLastRoll());
+				{
+					gameUI.printUserRollValue(temp_player.getPlayerName(), die1_value, die2_value, "");
+					
+					//Add the roll to turn score
+					playerTurn.addScore(dice.getLastRoll());
+				}
 				
-				//Add the roll to turn score
-				playerTurn.addScore(dice.getLastRoll());
 				
 				//Print out the total turn Score
 				gameUI.showMessage("Current turn score: " + playerTurn.getScore());
@@ -108,20 +111,8 @@ public class SkunkApp {
 			//Add the Turn Score to Player Score
 			temp_player.addScore(playerTurn.getScore());
 			
-			//Empty Line
-			gameUI.showMessage("");
-			
-			//Print out the Player Score after their turn
-			gameUI.showMessage("Player " + temp_player.getPlayerName() + " TOTAL SCORE after this turn is: " + temp_player.getGameScore());
-			
-			//Print out the Player Chip lost their turn
-			gameUI.showMessage("Player " + temp_player.getPlayerName() + " lost: " + (user_original_chips - temp_player.getChipCount())  +  " chips");
-			
-			//Print out the Player Chip after their turn
-			gameUI.showMessage("Player " + temp_player.getPlayerName() + " TOTAL CHIPS after this turn is: " + temp_player.getChipCount());
-			
-			//Print out Complete roll history of Player
-			gameUI.showMessage("Player " + temp_player.getPlayerName() + " rolls history: " + temp_player.getRollAudit());
+			//Print out User Full turn Information
+			gameUI.printUserFullTurnInfo(temp_player.getPlayerName(), temp_player.getGameScore(), temp_player.getChipCount(), (user_original_chips - temp_player.getChipCount()), temp_player.getRollAudit());
 		}
 		
 		

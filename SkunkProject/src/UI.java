@@ -120,6 +120,33 @@ public class UI {
 		return returning_number;
 	}
 	
+	public void printUserFullTurnInfo(String player_name, int player_score, int player_chips, int player_chips_lost, String player_roll_audit)
+	{
+		//Empty Line
+		StdOut.println("");
+		
+		//Print out the Player Score after their turn
+		StdOut.println("Player " + player_name + " TOTAL SCORE after this turn is: " + player_score);
+		
+		//Print out the Player Chip lost their turn
+		StdOut.println("Player " + player_name + " lost: " + player_chips_lost  +  " chips");
+		
+		//Print out the Player Chip after their turn
+		StdOut.println("Player " + player_name + " TOTAL CHIPS after this turn is: " + player_chips);
+		
+		//Print out Complete roll history of Player
+		StdOut.println("Player " + player_name + " rolls history: " + player_roll_audit);
+	}
 	
+	//Function for print out user roll values and total roll value
+	public void printUserRollValue(String player_name, int die1_value, int die2_value, String skunk_class)
+	{
+		//Check if skunk_class is empty
+		if(!skunk_class.equals(""))
+			StdOut.println("Player " + player_name + " rolled " + die1_value + " and " + die2_value + ": " + skunk_class);
+		else
+			StdOut.println("Player " + player_name + " rolled " + die1_value + " and " + die2_value + ": " + (die1_value + die2_value));
+			
+	}
 
 }
