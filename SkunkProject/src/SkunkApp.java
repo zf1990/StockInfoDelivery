@@ -43,7 +43,7 @@ public class SkunkApp {
 		for(Player temp_player : player_list)
 		{
 			boolean turn_cont; //for continue the turn
-			Turn player_turn = new Turn(); //initilize for each player turn
+			Turn player_turn = new Turn(); //initialize for each player turn
 			Dice dice = new Dice();
 			user_original_chips = temp_player.getChipCount();
 			
