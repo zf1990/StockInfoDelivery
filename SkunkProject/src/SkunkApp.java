@@ -43,7 +43,7 @@ public class SkunkApp {
 		for(Player temp_player : player_list)
 		{
 			boolean turn_cont; //for continue the turn
-			Turn playerTurn = new Turn(); //initilize for each player turn
+			Turn player_turn = new Turn(); //initilize for each player turn
 			Dice dice = new Dice();
 			user_original_chips = temp_player.getChipCount();
 			
@@ -69,24 +69,24 @@ public class SkunkApp {
 					temp_player.deductChips(4);
 					
 					//Update Player Score
-					playerTurn.setScore(0);
+					player_turn.setScore(0);
 					
-					//StdOut.println("Player " + temp_player.getPlayerName() + " rolled " + die1Value + "skunkClassification" + die2Value + ": " + "Double Skunk");
+					//Print out the Player name with the roll die value
 					skunkUI.printUserRollValue(temp_player.getPlayerName(), die1_value, die2_value, skunkClassification);
 					break;
 				}
 				else
 				{
-					//StdOut.println("Player " + temp_player.getPlayerName() + " rolled " + die1Value + " and " + die2Value + ": " + dice.getLastRoll());
+					//Print out the Player name with the roll die value
 					skunkUI.printUserRollValue(temp_player.getPlayerName(), die1_value, die2_value, "");
 					
 					//Add the roll to turn score
-					playerTurn.addScore(dice.getLastRoll());
+					player_turn.addScore(dice.getLastRoll());
 				
 				}
 					
-				//Print out the total turn Score
-				skunkUI.printUserTurnScore(playerTurn.getScore());
+				//Print out the total turn Score for each player
+				skunkUI.printUserTurnScore(player_turn.getScore());
 				
 				//Ask User to continue the turn or not
 				turn_cont = skunkUI.userRollContinue();
@@ -94,7 +94,7 @@ public class SkunkApp {
 			}while(turn_cont);
 			
 			//Add the Turn Score to Player Score
-			temp_player.addScore(playerTurn.getScore());
+			temp_player.addScore(player_turn.getScore());
 			
 			//Print out User Full turn Information
 			skunkUI.printUserFullTurnInfo(temp_player.getPlayerName(), temp_player.getGameScore(), temp_player.getChipCount(), (user_original_chips - temp_player.getChipCount()), temp_player.getRollAudit());
