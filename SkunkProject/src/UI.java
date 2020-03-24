@@ -70,7 +70,7 @@ public class UI {
 		for(int i = 0; i < number_of_players; i++)
 		{
 			//Getting Player Name from user
-			StdOut.print("Please fill in Player " + (0) + "'s Name: ");
+			StdOut.print("Please fill in Player " + (i+1) + "'s Name: ");
 			String player_name = getInput();
 			
 			//Create new Player instance and add to the player_list
