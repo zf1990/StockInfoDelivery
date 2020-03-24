@@ -25,10 +25,7 @@ public class SkunkApp {
 		
 	}
 
-	public void onegame() {
-		
-		Scanner scanner = new Scanner(System.in);
-		
+	public void onegame() {		
 		
 		//Original Chip Count
 		int user_original_chips;
