@@ -71,18 +71,17 @@ public class Dice
 	
 	public void setLastRoll(int RollValue) //set LastRoll value
 	{
-		this.lastRoll = RollValue;
+		if (RollValue >= 2 && RollValue <= 12)
+			this.lastRoll = RollValue;
 	}
-
 	// the following method converts the internals of
 	// this Dice object, and returns a descriptive String:
-	//
 	// Roll of 7 => 4 + 3
 	//
 
 	public String toString()
 	{
-		return "Dice with last roll: " + getLastRoll() + " => " + die1.getLastRoll() + " + " + die2.getLastRoll();
+		return "Dice with last roll: " + getLastRoll() + " => Die 1: " + die1.getLastRoll() + " + Die 2: " + die2.getLastRoll();
 	}
 	
 	//Check if the Dice contains Skunk/SkunkDeuce/DoubleSkunk
