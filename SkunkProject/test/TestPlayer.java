@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 class TestPlayer {
 
 	@Test
-	public void test_player_getPlayerName()
+	public void test_player_get_player_name()
 	{
 		Player test_player = new Player();
 		test_player.setPlayerName("TestPlayer123");
@@ -16,7 +16,7 @@ class TestPlayer {
 	}
 	
 	@Test
-	public void test_player_getPlayerScore()
+	public void test_player_get_player_score()
 	{
 		Player test_player = new Player();
 		test_player.setGameScore(55);
@@ -25,7 +25,7 @@ class TestPlayer {
 	}
 
 	@Test
-	public void test_player_getChipCount()
+	public void test_player_get_chip_count()
 	{
 		Player test_player = new Player();
 		test_player.setChipCount(50);

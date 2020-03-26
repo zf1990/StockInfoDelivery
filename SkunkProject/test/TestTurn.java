@@ -3,7 +3,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-//Class for testing Turn -
+//Class for testing Turn
 
 public class TestTurn {
 	
