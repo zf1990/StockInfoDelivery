@@ -1,6 +1,8 @@
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
+import java.util.HashMap;
+
 import org.junit.Test;
 
 public class TestDie
@@ -29,6 +31,45 @@ public class TestDie
 		Die d = new Die(6);
 		int expected = 6;
 		assertThat(d.getLastRoll(), is(expected));
+	}
+	
+	@Test
+	public void test_for_randomness() {
+		//To make sure it is a random die
+		Die d = new Die();
+		int[] counterArray = new int[] {0,0,0,0,0,0};
+		int looper = 10000;
+		
+		for (int i=0; i<looper; i++) {
+			d.roll();
+			
+			switch(d.getLastRoll()) {
+				case 1:
+					counterArray[0]++;
+					break;
+				case 2:
+					counterArray[1]++;
+					break;
+				case 3:
+					counterArray[2]++;
+					break;
+				case 4:
+					counterArray[3]++;
+					break;
+				case 5:
+					counterArray[4]++;
+					break;
+				case 6:
+					counterArray[5]++;
+					break;
+				default:
+					fail();
+			}
+		}
+		
+		for(int count : counterArray) { //The probability that any one value falls outside of these range is pretty small.
+			assertTrue(count>=looper/8 && count<=looper/4);
+		}
 	}
 
 }

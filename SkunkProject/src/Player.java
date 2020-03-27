@@ -86,7 +86,7 @@ public class Player {
 	//Get the list of all the rolls outcome
 	public String getRollAudit()
 	{
-		String fullRollAudit = "";
+		String fullRollAudit = "\n";
 //		for(String temp_str : roll_audit)
 //		{
 //			fullRollAudit = fullRollAudit + " " + temp_str;

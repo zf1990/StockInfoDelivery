@@ -17,15 +17,15 @@ public class TestDice {
 	}
 	
 	//Test with pre-defined value of dice2 as 7
-		@Test
-		public void test_get_dice_1_value_7() {
-			Die d1 = new Die();
-			Die d2 = new Die(7);
-			Dice d = new Dice(d1, d2);
-			int expected = 7;
-			assertThat(d.getLastRolldie2(), is(expected));
-		}
-	
+//		@Test
+//		public void test_get_dice_1_value_7() {
+//			Die d1 = new Die();
+//			Die d2 = new Die();
+//			Dice d = new Dice(d1, d2);
+//			int expected = 7;
+//			assertThat(d.getLastRolldie2(), is(expected));
+//		}
+//	
 	//Test with pre-defined value dice as 4 and 5
 	@Test
 	public void test_dice_roll_4_5() {
@@ -48,7 +48,7 @@ public class TestDice {
 		@Test
 		public void test_set_last_roll() {
 			Dice d = new Dice();
-			d.setLastRoll(10);
+			d.setLastRoll(5,5);
 			int expected = 10;
 			assertThat(d.getLastRoll(), is(expected));
 		}

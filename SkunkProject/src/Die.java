@@ -25,6 +25,11 @@ public class Die
 	{
 		this.lastRoll = (int) (Math.random() * 6 + 1);
 	}
+	
+	public void setValue(int value) {
+		if (value>=1 && value<=6)
+			lastRoll=value;
+	}
 
 	@Override
 	public String toString() // this OVERRIDES the default Object.toString()

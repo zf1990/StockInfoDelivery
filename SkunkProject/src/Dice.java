@@ -36,7 +36,7 @@ public class Dice
 	{
 		this.die1 = die1;
 		this.die2 = die2;
-		this.setLastRoll(die1.getLastRoll() + die2.getLastRoll());
+		lastRoll = die1.getLastRoll() + die2.getLastRoll();
 	}
 	
 	//Get Method for getting Die 1 and Die 2
@@ -69,10 +69,10 @@ public class Dice
 
 	}
 	
-	public void setLastRoll(int RollValue) //set LastRoll value
+	public void setLastRoll(int die1Value, int die2Value) //set LastRoll value
 	{
-		if (RollValue >= 2 && RollValue <= 12)
-			this.lastRoll = RollValue;
+		die1.setValue(die1Value);
+		die2.setValue(die2Value);
 	}
 	// the following method converts the internals of
 	// this Dice object, and returns a descriptive String:
