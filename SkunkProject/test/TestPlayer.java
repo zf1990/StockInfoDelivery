@@ -71,4 +71,14 @@ class TestPlayer {
 		int expected = 55;
 		assertThat(test_player.getChipCount(), is(expected));
 	}
+	
+	@Test
+	public void test_player_recordroll()
+	{
+		Player test_player = new Player();
+		test_player.recordRollValue(1,2);
+		String expected = "\nTurn: 1\t\t Score: (1,2)\n";
+		
+		assertThat(test_player.getRollAudit(), is(expected));
+	}
 }
