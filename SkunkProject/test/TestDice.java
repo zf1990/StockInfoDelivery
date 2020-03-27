@@ -64,9 +64,35 @@ public class TestDice {
 			assertThat(d.getLastRoll(), is(expected));
 		}	
 		
-	//Test for skunk output
+	//Test for skunk output with die 1
 		@Test
-		public void test_skunk_roll_output() {
+		public void test_skunk_roll_die1_output() {
+
+				Die d1 = new Die(1);
+				Die d2 = new Die(8);
+				Dice d = new Dice(d1, d2);
+
+				String expected = d.SkunkClassification();
+				assertThat("Skunk", is(expected));
+					
+		}
+	
+	//Test for skunk output with die 2
+		@Test
+		public void test_skunk_roll_die2_output() {
+
+				Die d1 = new Die(9);
+				Die d2 = new Die(1);
+				Dice d = new Dice(d1, d2);
+
+				String expected = d.SkunkClassification();
+				assertThat("Skunk", is(expected));
+					
+		}
+				
+	//Test for Double skunk output
+		@Test
+		public void test_double_skunk_roll_output() {
 
 				Die d1 = new Die(1);
 				Die d2 = new Die(1);
@@ -77,9 +103,9 @@ public class TestDice {
 					
 		}	
 				
-	//Test for Skunk Deuce output
+	//Test for Skunk Deuce with die1 = 1 and die2 = 2 output
 		@Test
-		public void test_deuce_skunk_roll_output() {
+		public void test_deuce_skunk_roll_d11_d22_output() {
 
 				Die d1 = new Die(1);
 				Die d2 = new Die(2);
@@ -89,6 +115,46 @@ public class TestDice {
 				assertThat("SkunkDeuce", is(expected));
 					
 		}
+	
+	//Test for Skunk Deuce with die1 = 1 and die2 = 2 output
+		@Test
+		public void test_deuce_skunk_roll_d12_d21_output() {
+
+				Die d1 = new Die(2);
+				Die d2 = new Die(1);
+				Dice d = new Dice(d1, d2);
+
+				String expected = d.SkunkClassification();
+				assertThat("SkunkDeuce", is(expected));
+					
+		}
+		
+	//Test for No Skunk output
+		@Test
+		public void test_no_skunk_roll_output() {
+
+				Die d1 = new Die(5);
+				Die d2 = new Die(3);
+				Dice d = new Dice(d1, d2);
+
+				String expected = d.SkunkClassification();
+				assertThat("NoSkunk", is(expected));
+					
+		}
+	
+	//Test for No Skunk output
+		@Test
+		public void test_to_string() {
+	
+				Die d1 = new Die(5);
+				Die d2 = new Die(3);
+				Dice d = new Dice(d1, d2);
+	
+				String expected = d.toString();
+				assertThat("Dice with last roll: 8 => Die 1: 5 + Die 2: 3", is(expected));
+					
+		}
+
 
 
 }

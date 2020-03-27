@@ -23,6 +23,16 @@ class TestPlayer {
 		int expected = 55;
 		assertThat(test_player.getGameScore(), is(expected));
 	}
+	
+	@Test
+	public void test_player_add_player_score()
+	{
+		Player test_player = new Player();
+		test_player.setGameScore(55);
+		test_player.addScore(10);
+		int expected = 65;
+		assertThat(test_player.getGameScore(), is(expected));
+	}
 
 	@Test
 	public void test_player_get_chip_count()
@@ -42,4 +52,23 @@ class TestPlayer {
 		assertThat(test_player.getRollValue(), is(expected));
 	}*/
 	
+	@Test
+	public void test_player_deduct_chip()
+	{
+		Player test_player = new Player();
+		test_player.setChipCount(50);
+		test_player.deductChips(5);
+		int expected = 45;
+		assertThat(test_player.getChipCount(), is(expected));
+	}
+	
+	@Test
+	public void test_player_add_chip()
+	{
+		Player test_player = new Player();
+		test_player.setChipCount(50);
+		test_player.addChips(5);
+		int expected = 55;
+		assertThat(test_player.getChipCount(), is(expected));
+	}
 }

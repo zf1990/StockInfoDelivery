@@ -78,4 +78,12 @@ public class TestDie
 		assertTrue(passed_random_test);
 	}
 
+	//Added additional method for toString test
+	@Test
+	public void test_die_toString()
+	{
+		Die d = new Die(6);
+		String expected = "" + "6";
+		assertThat(d.toString(), is(expected));
+	}
 }

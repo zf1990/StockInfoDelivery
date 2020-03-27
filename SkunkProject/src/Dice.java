@@ -73,6 +73,7 @@ public class Dice
 	{
 		die1.setValue(die1Value);
 		die2.setValue(die2Value);
+		this.lastRoll = die1.getLastRoll() + die2.getLastRoll();
 	}
 	// the following method converts the internals of
 	// this Dice object, and returns a descriptive String:

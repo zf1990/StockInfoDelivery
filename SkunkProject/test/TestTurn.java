@@ -25,4 +25,13 @@ public class TestTurn {
 		assertThat(test_score.getScore(), is(expected));
 	}
 
+	@Test
+	public void test_turn_add_score10()
+	{
+		Turn test_score = new Turn();
+		test_score.addScore(10);
+		int expected = 10;
+		assertThat(test_score.getScore(), is(expected));
+	}
+
 }
