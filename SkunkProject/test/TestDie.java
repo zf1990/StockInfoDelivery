@@ -67,9 +67,15 @@ public class TestDie
 			}
 		}
 		
+		boolean passed_random_test = true; 
 		for(int count : counterArray) { //The probability that any one value falls outside of these range is pretty small.
-			assertTrue(count>=looper/8 && count<=looper/4);
+			if (count<=looper/8 || count>=looper/4) {
+				passed_random_test = false;
+				break;
+			}
 		}
+		
+		assertTrue(passed_random_test);
 	}
 
 }
