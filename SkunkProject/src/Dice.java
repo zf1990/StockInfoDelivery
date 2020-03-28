@@ -95,7 +95,7 @@ public class Dice
 		else if (die1.getLastRoll() == 1 || die2.getLastRoll() == 1)
 			return "Skunk";
 		else
-			return "NoSkunk";
+			return "";
 	}
 
 	// static methods can go anywhere - but at end is one convention

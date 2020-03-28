@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -25,106 +26,90 @@ public class SkunkApp {
 		
 	}
 
-	public void onegame() {		
+	public void onegame() {
 		
-		//Original Chip Count
-		int user_original_chips;
+		//check for winner
+		boolean is_winner = false;
 		
-		//Go through turns for each player
-		for(Player temp_player : player_list)
+		List<Player> winner_list = new ArrayList<Player>();
+		
+		//Play until there is a winner
+		while(!is_winner)
 		{
-			String turnCont = "yes"; //for continue the turn
-			Turn playerTurn = new Turn(); //initilize for each player turn
-			Dice dice = new Dice();
-			user_original_chips = temp_player.getChipCount();
-			
-			//Loop for Player to continue turn
-			while(turnCont.equals("yes"))
+			//Go through turns for each player
+			for(Player temp_player : player_list)
 			{
-				//Roll the Dice
-				dice.roll();
+				String turnCont = "yes"; //for continue the turn
+				Turn playerTurn = new Turn(); //initilize for each player turn
 				
-				//Get value for each Die
-				int die1_value = dice.getLastRolldie1();
-				int die2_value = dice.getLastRolldie2();
+				//Original Chip Count
+				int user_original_chips = temp_player.getChipCount();
 				
-				//Record the roll value to Player
-				temp_player.recordRollValue(die1_value, die2_value);
+				//Set current player for the turn
+				playerTurn.setCurrentPlayer(temp_player);
 				
-				//Check if the roll contain Skunk/Skunk Deuce/Double Skunk (This may be moved to other Classes)
-				String skunkClassification = dice.SkunkClassification();
-				
-				if(skunkClassification.equals("DoubleSkunk"))
+				//Loop for Player to continue turn
+				while(turnCont.equals("yes"))
 				{
-					//Update user Chip
-					temp_player.deductChips(4);
+					//Play Turn
+					playerTurn.playTurn();
 					
-					//Update Player Score
-					temp_player.setGameScore(0);
+					//Get the Dice rolled from Turn
+					Dice player_turn_dice = playerTurn.getDice();
 					
+					//Print out User Roll Value
+					gameUI.printUserRollValue(temp_player.getPlayerName(), player_turn_dice.getLastRolldie1() , player_turn_dice.getLastRolldie2(), player_turn_dice.SkunkClassification());
 					
-					gameUI.printUserRollValue(temp_player.getPlayerName(), die1_value, die2_value, skunkClassification);
-					break;
-				}
-				else if (skunkClassification.equals("SkunkDeuce"))
-				{
-					//Update user Chip
-					temp_player.deductChips(2);
+					//Print out the total turn Score
+					gameUI.showMessage("Current turn score: " + playerTurn.getScore());
 					
-					//Update Turn Score
-					playerTurn.setScore(0);
+					//Check to see if Dice rolled is Skunk Dice
+					if(!player_turn_dice.SkunkClassification().equals(""))
+						break;
 					
-					gameUI.printUserRollValue(temp_player.getPlayerName(), die1_value, die2_value, skunkClassification);
-					break;
-				}
-				else if (skunkClassification.equals("Skunk"))
-				{
-					//Update user Chip
-					temp_player.deductChips(1);
-					
-					//Update Turn Score
-					playerTurn.setScore(0);
-					
-					gameUI.printUserRollValue(temp_player.getPlayerName(), die1_value, die2_value, skunkClassification);
-					break;
-				}
-				else
-				{
-					gameUI.printUserRollValue(temp_player.getPlayerName(), die1_value, die2_value, "");
-					
-					//Add the roll to turn score
-					playerTurn.addScore(dice.getLastRoll());
-				}
+					//Ask User to continue the turn or not
+					gameUI.showMessage("Continue roll dice (yes/no)? ");
+					turnCont = gameUI.getInput(new String[] {"Yes", "No"});
+				};
 				
+				//Add the Turn Score to Player Score
+				temp_player.addScore(playerTurn.getScore());
 				
-				//Print out the total turn Score
-				gameUI.showMessage("Current turn score: " + playerTurn.getScore());
+				//Print out User Full turn Information
+				gameUI.printUserFullTurnInfo(temp_player.getPlayerName(), temp_player.getGameScore(), temp_player.getChipCount(), (user_original_chips - temp_player.getChipCount()), temp_player.getRollAudit());
 				
-				//Ask User to continue the turn or not
-				gameUI.showMessage("Continue roll dice (yes/no)? ");
-				turnCont = gameUI.getInput(new String[] {"Yes", "No"});
-			};
-			
-			//Add the Turn Score to Player Score
-			temp_player.addScore(playerTurn.getScore());
-			
-			//Print out User Full turn Information
-			gameUI.printUserFullTurnInfo(temp_player.getPlayerName(), temp_player.getGameScore(), temp_player.getChipCount(), (user_original_chips - temp_player.getChipCount()), temp_player.getRollAudit());
+				//Check to see if this Player Score is 100 or above
+				if(temp_player.getGameScore() >= 100)
+				{
+					is_winner = true;
+					
+					if(winner_list.isEmpty())
+					{
+						winner_list.add(temp_player);
+					}
+					else
+					{
+						//Check if temp_player score is more than the current winner score
+						if(temp_player.getGameScore() > winner_list.get(0).getGameScore())
+						{
+							winner_list.clear();
+							winner_list.add(temp_player);
+						}
+						else if(temp_player.getGameScore() == winner_list.get(0).getGameScore())
+						{
+							winner_list.add(temp_player);
+						}
+					}
+				}
+			}
 		}
 		
-		
-		//Testing section
-		/*for(Player player_t : player_list)
+		//Showing the list of Winner and their total score
+		for(Player win_player : winner_list)
 		{
-			StdOut.println(player_t.getPlayerName());
-		}*/
-		//Testing section
-		
-		//Create new Dice instance 
-		//Dice dice = new Dice();
-		
-		//Print out last roll
-		//StdOut.println(dice.toString());
+			gameUI.showMessage("");
+			gameUI.showMessage("Player " + win_player.getPlayerName() + " won with total score of " + win_player.getGameScore());
+		}
 	}
 	
 	

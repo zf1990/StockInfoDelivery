@@ -138,7 +138,7 @@ public class TestDice {
 				Dice d = new Dice(d1, d2);
 
 				String expected = d.SkunkClassification();
-				assertThat("NoSkunk", is(expected));
+				assertThat("", is(expected));
 					
 		}
 	
