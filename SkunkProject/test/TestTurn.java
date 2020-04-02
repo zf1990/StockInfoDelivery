@@ -8,7 +8,7 @@ import org.junit.Test;
 public class TestTurn {
 	
 	@Test
-	public void test_turn_se_score()
+	public void test_turn_set1_score()
 	{
 		Turn test_score = new Turn();
 		test_score.setScore(25);
@@ -33,5 +33,44 @@ public class TestTurn {
 		int expected = 10;
 		assertThat(test_score.getScore(), is(expected));
 	}
+	
+	@Test
+	public void test_play_turn()
+	{
+		Turn test_turn = new Turn();
+		
+		test_turn.addScore(10);
+		
+		int expected = 10;
+		assertThat(test_turn.getScore(), is(expected));
+	}
+	
+	@Test
+	public void test_set_current_player()
+	{
+		Turn test_turn = new Turn();
+		
+		Player expected = new Player();
+
+		test_turn.setCurrentPlayer(expected);
+		
+		test_turn.setCurrentPlayer(expected);
+
+		assertThat(test_turn.getCurrentPlayer(), is(expected));
+	}
+	
+	@Test
+	public void test_set_dice()
+	{
+		Turn test_turn = new Turn();
+		
+		Dice expected = new Dice();
+
+		test_turn.setDice(expected);
+
+		assertThat(test_turn.getDice(), is(expected));
+	}
+	
+	
 
 }

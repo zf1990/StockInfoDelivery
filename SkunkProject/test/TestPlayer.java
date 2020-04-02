@@ -81,4 +81,14 @@ class TestPlayer {
 		
 		assertThat(test_player.getRollAudit(), is(expected));
 	}
+	//added 4/1
+	@Test
+	public void test_player_get_player()
+	{
+		Player test_set_player = new Player();
+		test_set_player.setPlayerName("Player1");
+		String expected = "Player1";
+		
+		assertThat(test_set_player.getPlayerName(), is(expected));
+	}
 }
