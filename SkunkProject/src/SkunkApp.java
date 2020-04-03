@@ -39,14 +39,19 @@ public class SkunkApp {
 			//Go through turns for each player
 			for(Player temp_player : player_list)
 			{
-				String turnCont = "yes"; //for continue the turn
+				
 				Turn playerTurn = new Turn(); //initilize for each player turn
 				
 				//Original Chip Count
 				int user_original_chips = temp_player.getChipCount();
 				
 				//Set current player for the turn
+				
 				playerTurn.setCurrentPlayer(temp_player);
+				gameUI.showMessage("Current player: " + temp_player.getPlayerName());
+				gameUI.showMessage("Would you like to roll? (\"Yes\"/\"No\")");
+				String turnCont = gameUI.getInput(new String[] {"Yes", "No"}); //for continue the turn
+
 				
 				//Loop for Player to continue turn
 				while(turnCont.equals("yes"))
