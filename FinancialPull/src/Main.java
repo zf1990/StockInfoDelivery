@@ -28,46 +28,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Main {
-	// http://localhost:8080/RESTfulExample/json/product/get
 	
 	
 	public static void main(String[] args) {
 		
-		JFrame frame = new JFrame();
-		frame.setSize(400, 400);
-	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	   
-        Container container = frame.getContentPane();
-        container.setLayout(new FlowLayout());
-        
-        JTextField textField = new JTextField();
-        textField.setPreferredSize(new Dimension(150, 25));
+		String[] symbols = new String[] {"SNBR", "SPWR", "OKTA", "MSFT"};
 
-        JLabel label = new JLabel("Input will appear here");
-        
-        JButton okButton = new JButton("OK");
-        okButton.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String input = textField.getText();
-                System.out.println("Input: " + input);
-
-                label.setText(input);
-            }
-        });
-
-        container.add(textField);
-        container.add(okButton);
-        container.add(label);
-
-        frame.setVisible(true);
 		
 		//Variable
-		APIRepository api_repo = new APIRepository();
+		APIRepository api_repo = new APIRepository(symbols);
+		api_repo.sendGetRequest();
 		
 		//Calling the API Repo to get the Real Time Price for Apple
-		String realtimeprice = api_repo.getRealTimePrice("AAPL");
+		String realtimeprice = api_repo.getRealTimePrice("SNBR");
 		System.out.println("Real Time Price");
 		System.out.println(realtimeprice);
 		
