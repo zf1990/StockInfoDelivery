@@ -7,7 +7,8 @@ import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -116,7 +117,7 @@ public class APIRepository {
 		return Combined_URL;
 	}
 	
-	public void sendGetRequest() {
+	public String sendGetRequest() throws Exception {
 
 		String apiURL = urlCombination();
 		HttpRequest request = HttpRequest.newBuilder().
@@ -124,10 +125,15 @@ public class APIRepository {
 				uri(URI.create(apiURL)).
 				build();
 			
-		httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-			.thenApply(HttpResponse::body) //Double colon is a lambda expression
-			.thenAccept(System.out::println)
-			.join(); //Must have it to print results to window.
+		/*return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+			.thenApply(HttpResponse::body); //Double colon is a lambda expression*/
+			//.thenAccept(System.out::println);
+			//.join(); //Must have it to print results to window.
+		
+		CompletableFuture<HttpResponse<String>> response =
+                httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+
+        return response.thenApply(HttpResponse::body).get(5, TimeUnit.SECONDS);
 							
 	}
 	

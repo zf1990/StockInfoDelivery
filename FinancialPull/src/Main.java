@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import jdk.nashorn.internal.parser.JSONParser;
@@ -31,17 +32,77 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.concurrent.CompletableFuture;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import net.miginfocom.swing.MigLayout;
+
 public class Main {
 	
 	
-	public static void main(String[] args) {
+	private String user_email;
+    private String stock_code;
+    //private String[] stock_symbols;
+
+	public static void main(String[] args) throws Exception { 
 		
-		String[] symbols = new String[] {"SNBR", "SPWR", "OKTA", "MSFT"};
+//EXP for UI
+		 
+		 
+		 /*EventQueue.invokeLater(new Runnable() {
+	            @Override
+	            public void run() {
+	                try {
+	                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+	                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+	                    ex.printStackTrace();
+	                }
+	
+	                System.out.println("Before Window");
+	                UI u = new UI();
+	                System.out.println("After Window");
+	               // System.out.println(u.getUserEmail() + u.getStockCode());
+	                
+	                
+	                //Convert Stock list from String to String Array
+	                String[] stock_symbols = u.getStockCode().split(",");
+	                
+	                
+	        		//Variable - example: SNBR,SPWR,OKTA,MSFT
+	        		APIRepository api_repo = new APIRepository(stock_symbols);
+	        		api_repo.sendGetRequest();
+	                
+	            }
+	      });*/
+//EXP for UI
+		
+ 		//Variable - example: SNBR,SPWR,OKTA,MSFT
+ 		//APIRepository api_repo = new APIRepository(stock_symbols);
+ 		//api_repo.sendGetRequest();
+ 		
+		//String[] symbols = new String[] {"SNBR", "SPWR", "OKTA", "MSFT"};
+
+		
+		//StdOut.println(stock_code);
 
 		
 		//Variable
-		APIRepository api_repo = new APIRepository(symbols);
-		api_repo.sendGetRequest();
+		//APIRepository api_repo = new APIRepository(symbols);
+		//api_repo.sendGetRequest();
 		
 		//Calling the API Repo to get the Real Time Price for Apple
 		//String realtimeprice = api_repo.getRealTimePrice("SNBR");
@@ -60,26 +121,63 @@ public class Main {
 		//Create new User
 		User user = new User(input_email);
 		
-		//Showing current stock
-		StdOut.println("Currently registeredd stock:");
-		StdOut.println(user.getUserStock());
+		while(true)
+		{
+			//Showing current stock
+			StdOut.println("Currently registeredd stock:");
+			String user_stock_list = (user.getUserStock() != "") ? user.getUserStock() : "None";
+			StdOut.println(user_stock_list);
+			
+			//Testing out the User class
+			StdOut.println("\n");
+			StdOut.println("Adding Stock Name:");
+			String stock_name = StdIn.readLine();
 		
-		//Testing out the User class
-		StdOut.println("Adding Stock Name:");
-		String stock_name = StdIn.readLine();
+			//getting Price and store it for the User
+            //Convert Stock list from String to String Array
+            String[] stock_symbols = stock_name.split(",");
+            
+    		//Variable - example: SNBR,SPWR,OKTA,MSFT
+    		APIRepository api_repo = new APIRepository(stock_symbols);
+    		//String response = api_repo.sendGetRequest();
+			
+    		//Map Response to JSON Object
+			JSONObject stock_json = new JSONObject(api_repo.sendGetRequest());
+			
+			//When there are multiple Company stock
+			if(stock_json.has("companiesPriceList"))
+			{
+				JSONArray results = (JSONArray) stock_json.get("companiesPriceList");
+				//Go through each Stock
+				for (int i = 0; i < results.length(); i++) {
+					JSONObject temp_stock = results.getJSONObject(i);
+					
+					//Insertupdate the user stock information
+					user.stockInsertUpdate(temp_stock.getString("symbol"), temp_stock.getDouble("price"));
+				}
 
-		
-		//Getting Price and store it for this user
-		JSONObject stock_json = new JSONObject(api_repo.getRealTimePrice(stock_name));
-		StdOut.println(stock_json.toString());
-		StdOut.println(stock_json.getDouble("price"));
-		
-		//Add the Stock to current user
-		user.stockInsertUpdate(stock_name, stock_json.getDouble("price"));
-		
-		//Showing current stock
-		StdOut.println("Currently registeredd stock:");
-		StdOut.println(user.getUserStock());
-		
+			}
+			else //When there is only one Company stock
+			{
+				StdOut.println(stock_json.toString());
+				StdOut.println(stock_json.getDouble("price"));
+				
+				//Add the Stock to current user
+				user.stockInsertUpdate(stock_name, stock_json.getDouble("price"));
+			}
+    		
+			StdOut.println("\n");
+			//Getting Price and store it for this user
+			//JSONObject stock_json = new JSONObject(api_repo.getRealTimePrice(stock_name));
+			//StdOut.println(stock_json.toString());
+			//StdOut.println(stock_json.getDouble("price"));
+			
+			//Add the Stock to current user
+			//user.stockInsertUpdate(stock_name, stock_json.getDouble("price"));
+			
+			//Showing current stock
+			//StdOut.println("Currently registeredd stock:");
+			//StdOut.println(user.getUserStock());
+		}
 	}
 }
