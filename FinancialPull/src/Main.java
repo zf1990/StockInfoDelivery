@@ -159,8 +159,8 @@ public class Main {
 			}
 			else //When there is only one Company stock
 			{
-				StdOut.println(stock_json.toString());
-				StdOut.println(stock_json.getDouble("price"));
+				//StdOut.println(stock_json.toString());
+				//StdOut.println(stock_json.getDouble("price"));
 				
 				//Add the Stock to current user
 				user.stockInsertUpdate(stock_name, stock_json.getDouble("price"));
