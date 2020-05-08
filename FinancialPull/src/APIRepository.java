@@ -7,7 +7,8 @@ import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -51,7 +52,7 @@ public class APIRepository {
 	}
 	
 	//Method for getting real time stock price for specific Company
-	public String getRealTimePrice(String company_name)
+	/*public String getRealTimePrice(String company_name)
 	{
 		//Set the URL Endpoint for Real time stock price
 		String endPoint = "https://financialmodelingprep.com/api/v3/stock/real-time-price/" + company_name;
@@ -108,7 +109,7 @@ public class APIRepository {
 		  }
 		  
 		  return response;
-	}
+	}*/
 	
 	public String urlCombination() {
 		String joinedSymbols = String.join(",", Symbols);
@@ -116,7 +117,7 @@ public class APIRepository {
 		return Combined_URL;
 	}
 	
-	public void sendGetRequest() {
+	public String sendGetRequest() throws Exception {
 
 		String apiURL = urlCombination();
 		HttpRequest request = HttpRequest.newBuilder().
@@ -124,48 +125,15 @@ public class APIRepository {
 				uri(URI.create(apiURL)).
 				build();
 			
-		httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-			.thenApply(HttpResponse::body) //Double colon is a lambda expression
-			.thenAccept(System.out::println)
-			.join(); //Must have it to print results to window.
+		/*return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+			.thenApply(HttpResponse::body); //Double colon is a lambda expression*/
+			//.thenAccept(System.out::println);
+			//.join(); //Must have it to print results to window.
+		
+		CompletableFuture<HttpResponse<String>> response =
+                httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+
+        return response.thenApply(HttpResponse::body).get(5, TimeUnit.SECONDS);
 							
 	}
-	
-	
-	
-	
-	
-	//Generic Method for making the API call and return response
-		/*public String getResponse(String apiEndPoint)
-		{
-		      // Headers for a request
-		      String x_rapidapi_host = "movie-database-imdb-alternative.p.rapidapi.com";
-		      String x_rapidapi_key = <YOUR_RAPIDAPI_KEY>;//Type here your key
-		       Params
-		      String s = "Pulp";
-		      
-		  // Format query for preventing encoding problems
-		      String query = String.format("s=%s",
-		       URLEncoder.encode(s, charset));
-			
-			 Host, charset and headers vars should be the same
-		      String i = "tt0110912";
-		  // Format query for preventing encoding problems
-		      query = String.format("i=%s",
-		       URLEncoder.encode(i, charset));      
-		       //Json response
-		      HttpResponse <JsonNode> response = Unirest.get(host + "?" + query)
-		      HttpResponse <String> response = Unirest.get(apiEndPoint).asString();
-		      .header("x-rapidapi-host", x_rapidapi_host);
-		      .header("x-rapidapi-key", x_rapidapi_key);
-		      
-		  //Prettifying
-		      Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		      JsonParser jp = new JsonParser();
-		      JsonElement je = jp.parse(response.getBody().toString());
-		      String prettyJsonString = gson.toJson(je);
-		      System.out.println(prettyJsonString);
-		      
-		      return prettyJsonString;
-		}*/
 }
