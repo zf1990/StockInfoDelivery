@@ -31,7 +31,7 @@ public class APIRepository {
 	
 	//private variable
 	
-	private String URL = "https://financialmodelingprep.com/api/v3/stock/real-time-price/";
+	private String URL = "https://financialmodelingprep.com/api/v3/quote/";
 	private String[] Symbols;
 	private HashSet<String> Data_Attributes;
     private HttpClient httpClient = HttpClient.newHttpClient();
