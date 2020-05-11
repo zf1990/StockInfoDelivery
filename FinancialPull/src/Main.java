@@ -1,5 +1,5 @@
-//https://financialmodelingprep.com/developer/docs/#Stock-Price --API
-//https://mkyong.com/webservices/jax-rs/restfull-java-client-with-java-net-url/ --Code
+///https://financialmodelingprep.com/developer/docs/#Stock-Price --API
+///https://mkyong.com/webservices/jax-rs/restfull-java-client-with-java-net-url/ --Code
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -24,7 +24,7 @@ import javax.swing.JTextField;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import jdk.nashorn.internal.parser.JSONParser;
+//import jdk.nashorn.internal.parser.JSONParser;
 
 import java.awt.Container;
 import java.awt.Dimension;
@@ -124,7 +124,7 @@ public class Main {
 		while(true)
 		{
 			//Showing current stock
-			StdOut.println("Currently registeredd stock:");
+			StdOut.println("Currently registered stock:");
 			String user_stock_list = (user.getUserStock() != "") ? user.getUserStock() : "None";
 			StdOut.println(user_stock_list);
 			
