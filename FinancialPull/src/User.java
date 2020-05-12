@@ -30,7 +30,7 @@ public class User {
 	
 	
 	
-	//private Map<String, Double> user_stock; 
+	private Map<String, Double> user_stock; 
 
 	//Constructor
 	public User(String user_email)
@@ -97,39 +97,39 @@ public class User {
 		return NumberOfUsers;
 	}
 	//Get + Set for User Stock
-//	public void setUserStock(Map<String, Double> user_stock)
-//	{
-//		this.user_stock = user_stock;
-//	}
+	public void setUserStock(Map<String, Double> user_stock) 
+	{
+		this.user_stock = user_stock;
+	}
 	
-//	public String getUserStock()
-//	{
-//		String stock_list = "";
-//		for (Map.Entry<String, Double> entry : user_stock.entrySet()) {
-//		    String key = entry.getKey();
-//		    Double val = entry.getValue();
-//		    
-//		    stock_list = stock_list + key + ": " + val + "\n";
-//		}
-//		return stock_list;
-//	}
+	public String getUserStock()
+	{
+		String stock_list = "";
+		for (Map.Entry<String, Double> entry : user_stock.entrySet()) {
+		    String key = entry.getKey();
+		    Double val = entry.getValue();
+		    
+		    stock_list = stock_list + key + ": " + val + "\n";
+		}
+		return stock_list;
+	}
 	
 	
 	
 	//Add or update stock information
-//	public void stockInsertUpdate(String stock_name, double stock_price)
-//	{
-//		//Send out email if the new stock price is different than the current stock price
-//		if(user_stock.containsKey(stock_name))
-//		{
-//			if(user_stock.get(stock_name) != stock_price)
-//			{
-//				//TO-DO send out email
-//			}
-//		}
-//		
-//		//Add new stock if the stock does not exists
-//		//IN addition to update the existing stock_price
-//		user_stock.put(stock_name, stock_price);		
-//	}
+	public void stockInsertUpdate(String stock_name, double stock_price)
+	{
+		//Send out email if the new stock price is different than the current stock price
+		if(user_stock.containsKey(stock_name))
+		{
+			if(user_stock.get(stock_name) != stock_price)
+			{
+				//TO-DO send out email
+			}
+		}
+		
+		//Add new stock if the stock does not exists
+		//IN addition to update the existing stock_price
+		user_stock.put(stock_name, stock_price);		
+	}
 }
