@@ -24,6 +24,8 @@ import javax.swing.JTextField;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 //import jdk.nashorn.internal.parser.JSONParser;
 
 import java.awt.Container;
@@ -37,6 +39,7 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 
@@ -60,73 +63,61 @@ public class Main {
 
 	public static void main(String[] args) throws Exception { 
 		
-//EXP for UI
-		 
-		 
-		 /*EventQueue.invokeLater(new Runnable() {
-	            @Override
-	            public void run() {
-	                try {
-	                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-	                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-	                    ex.printStackTrace();
-	                }
-	
-	                System.out.println("Before Window");
-	                UI u = new UI();
-	                System.out.println("After Window");
-	               // System.out.println(u.getUserEmail() + u.getStockCode());
-	                
-	                
-	                //Convert Stock list from String to String Array
-	                String[] stock_symbols = u.getStockCode().split(",");
-	                
-	                
-	        		//Variable - example: SNBR,SPWR,OKTA,MSFT
-	        		APIRepository api_repo = new APIRepository(stock_symbols);
-	        		api_repo.sendGetRequest();
-	                
-	            }
-	      });*/
-//EXP for UI
-		
- 		//Variable - example: SNBR,SPWR,OKTA,MSFT
- 		//APIRepository api_repo = new APIRepository(stock_symbols);
- 		//api_repo.sendGetRequest();
- 		
-		//String[] symbols = new String[] {"SNBR", "SPWR", "OKTA", "MSFT"};
-
-		
-		//StdOut.println(stock_code);
-
-		
-		//Variable
-		//APIRepository api_repo = new APIRepository(symbols);
-		//api_repo.sendGetRequest();
-		
-		//Calling the API Repo to get the Real Time Price for Apple
-		//String realtimeprice = api_repo.getRealTimePrice("SNBR");
-		//System.out.println("Real Time Price");
-		//System.out.println(realtimeprice);
-		
-		//Calling the API to get historical
-		//String historical = api_repo.getHistoricalPrice("AAPL",30);		
-		//System.out.println("Historical");
-		//System.out.println(historical);
-		
-		//Testing out the User class
-		StdOut.println("Please input Email:");
-		String input_email = StdIn.readLine();
+ 		//Stock example: SNBR,SPWR,OKTA,MSFT
 
 		//Create new User
-		User user = new User(input_email);
+		ArrayList<User> User_list = new ArrayList<User>();
 		
-		while(true)
+		//Load the user from the existing JSON File
+		//TO-DO
+		
+		//Menu
+		int a = 1;
+		while(a < 3)
 		{
-			//Showing current stock
-			StdOut.println("Currently registered stock:");
-			String user_stock_list = (user.getUserStock() != "") ? user.getUserStock() : "None";
-			StdOut.println(user_stock_list);
+			//getting information for User
+			StdOut.println("Please Enter your Email:");
+			String user_email = StdIn.readLine();
+			
+			StdOut.println("Specify list of Stock:");
+			String stock_list = StdIn.readLine();
+			
+			StdOut.println("Specify list of attribute:");
+			String attribute_list = StdIn.readLine();
+			
+			//Inititlize user
+			User user = new User(user_email);
+			
+			//Adding Stock and attribute to User
+			//SNBR,SPWR,OKTA,MSFT
+			//price, open, change
+			user.addInterestedStock(stock_list);
+			user.addInterestedProperties(attribute_list);
+			
+			//Add User to the user list
+			User_list.add(user);
+			
+			a++;
+		}
+		
+		//Convert the user to JSON string for storing
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonString = mapper.writeValueAsString(User_list);
+		System.out.println("ResultingJSONstring = " + jsonString);
+
+		
+		//SAMPLE CODE
+		/*int a = 1;
+		while(a < 3)
+		{
+			a++;
+			//Testing out the User class
+			StdOut.println("Please input Email:");
+			String input_email = StdIn.readLine();
+			
+			User user = new User(input_email);
+			
+			
 			
 			//Testing out the User class
 			StdOut.println("\n");
@@ -152,19 +143,21 @@ public class Main {
 				//Insertupdate the user stock information
 				user.stockInsertUpdate(temp_stock.getString("symbol"), temp_stock.getDouble("price"));
 			}
-    		
-			StdOut.println("\n");
-			//Getting Price and store it for this user
-			//JSONObject stock_json = new JSONObject(api_repo.getRealTimePrice(stock_name));
-			//StdOut.println(stock_json.toString());
-			//StdOut.println(stock_json.getDouble("price"));
-			
-			//Add the Stock to current user
-			//user.stockInsertUpdate(stock_name, stock_json.getDouble("price"));
 			
 			//Showing current stock
-			//StdOut.println("Currently registeredd stock:");
-			//StdOut.println(user.getUserStock());
+			StdOut.println("Currently registered stock:");
+			String user_stock_list = (user.getUserStock() != "") ? user.getUserStock() : "None";
+			StdOut.println(user_stock_list);
+			
+			User_list.add(user);
 		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		  String jsonString = mapper.writeValueAsString(User_list);
+		  System.out.println("ResultingJSONstring = " + jsonString);
+		  //System.out.println(json);
+		
+		StdOut.println("\n");*/
+		//SAMPLE CODE
 	}
 }

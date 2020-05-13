@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +34,8 @@ public class User {
 	public User(String user_email)
 	{
 		this.email_Address = user_email;
+		Interested_Stock_Symbols = new ArrayList<String>();
+		stockAttributes = new ArrayList<StockAttributes>();
 		NumberOfUsers++;
 		//AddUserToList();
 	}
@@ -43,8 +46,6 @@ public class User {
 		stockAttributes = interestedAttributes;
 		NumberOfUsers++;
 	}
-	
-	
 	
 	//Get + Set for User Email
 	public void setUserEmail(String user_email)
@@ -58,12 +59,28 @@ public class User {
 	}
 	
 	public void addInterestedStock(String stock_symbol) {
-		Interested_Stock_Symbols.add(stock_symbol);
+		//Split the String to a String Array
+		String[] stock_temp = stock_symbol.split(",");
+	
+		// for each loop to get and insert stock symbol
+        for (String str_temp : stock_temp)  
+        { 
+    		Interested_Stock_Symbols.add(str_temp);
+        } 
 		
 	}
 	
-	public void addInterestedProperties(StockAttributes A_StockAttributes) {
-		stockAttributes.add(A_StockAttributes);
+	public void addInterestedProperties(String A_StockAttributes) {
+		//Split the String to a String Array
+		String[] prop_temp = A_StockAttributes.split(",");
+		
+		// for each loop to get the enum of each attributes
+        for (String str_temp : prop_temp)  
+        { 
+        	StockAttributes attribute_enum = StockAttributes.valueOf(str_temp.toUpperCase());
+        	stockAttributes.add(attribute_enum);
+        } 
+		
 	}
 	
 	public String getEmail_Address() {
