@@ -14,9 +14,9 @@ class UserTest {
 		List<StockAttributes> test_attr = new ArrayList<StockAttributes>();
 		List<String> test_symb = new ArrayList<String>();
 		
-		test_attr.add(StockAttributes.Change);
-		test_attr.add(StockAttributes.Price);
-		test_attr.add(StockAttributes.Market_Cap);
+		test_attr.add(StockAttributes.CHANGE);
+		test_attr.add(StockAttributes.PRICE);
+		test_attr.add(StockAttributes.MARKETCAP);
 		
 		test_symb.add("MSFT");
 		int currentUserNumber = User.getNumberOfUsers();
@@ -32,9 +32,9 @@ class UserTest {
 		List<StockAttributes> test_attr = new ArrayList<StockAttributes>();
 		List<String> test_symb;
 		
-		test_attr.add(StockAttributes.Change);
-		test_attr.add(StockAttributes.Price);
-		test_attr.add(StockAttributes.Market_Cap);
+		test_attr.add(StockAttributes.CHANGE);
+		test_attr.add(StockAttributes.PRICE);
+		test_attr.add(StockAttributes.MARKETCAP);
 		
 		test_symb = (new ArrayList<String> (
 				Arrays.asList("V","MMM","UAL")));
@@ -54,15 +54,15 @@ class UserTest {
 		List<StockAttributes> test_attr = new ArrayList<StockAttributes>();
 		List<String> test_symb = new ArrayList<String>();
 		
-		test_attr.add(StockAttributes.Change);
-		test_attr.add(StockAttributes.Price);
-		test_attr.add(StockAttributes.Market_Cap);
+		test_attr.add(StockAttributes.CHANGE);
+		test_attr.add(StockAttributes.PRICE);
+		test_attr.add(StockAttributes.MARKETCAP);
 		
 		test_symb = (Arrays.asList((new String[] {"V", "MMM", "UAL"})));
 		
 		User user = new User(test_email, test_symb, test_attr);
 		
-		user.addInterestedProperties(StockAttributes.Change_Percentage);
+		user.addInterestedProperties(StockAttributes.CHANGEPERCENTAGE);
 		
 		assertEquals(user.getStockAttributes().size(),4);
 	}
@@ -73,9 +73,9 @@ class UserTest {
 		List<StockAttributes> test_attr = new ArrayList<StockAttributes>();
 		List<String> test_symb = new ArrayList<String>();
 		
-		test_attr.add(StockAttributes.Change);
-		test_attr.add(StockAttributes.Price);
-		test_attr.add(StockAttributes.Market_Cap);
+		test_attr.add(StockAttributes.CHANGE);
+		test_attr.add(StockAttributes.PRICE);
+		test_attr.add(StockAttributes.MARKETCAP);
 		
 		test_symb = (Arrays.asList((new String[] {"V", "MMM", "UAL"})));
 		
@@ -93,9 +93,9 @@ class UserTest {
 		List<StockAttributes> test_attr = new ArrayList<StockAttributes>();
 		List<String> test_symb = new ArrayList<String>();
 		
-		test_attr.add(StockAttributes.Change);
-		test_attr.add(StockAttributes.Price);
-		test_attr.add(StockAttributes.Market_Cap);
+		test_attr.add(StockAttributes.CHANGE);
+		test_attr.add(StockAttributes.PRICE);
+		test_attr.add(StockAttributes.MARKETCAP);
 		
 		test_symb = (Arrays.asList((new String[] {"V", "MMM", "UAL"})));
 		
@@ -114,9 +114,9 @@ class UserTest {
 		List<StockAttributes> test_attr = new ArrayList<StockAttributes>();
 		List<String> test_symb = new ArrayList<String>();
 		
-		test_attr.add(StockAttributes.Change);
-		test_attr.add(StockAttributes.Price);
-		test_attr.add(StockAttributes.Market_Cap);
+		test_attr.add(StockAttributes.CHANGE);
+		test_attr.add(StockAttributes.PRICE);
+		test_attr.add(StockAttributes.MARKETCAP);
 		
 		test_symb = (Arrays.asList((new String[] {"V", "MMM", "UAL"})));
 		

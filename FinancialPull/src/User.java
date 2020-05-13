@@ -30,6 +30,16 @@ public class User {
 	
 	private Map<String, Double> user_stock = new HashMap<String, Double>(); 
 
+
+	//Constructor
+	public User(String user_email)
+	{
+		this.email_Address = user_email;
+		Interested_Stock_Symbols = new ArrayList<String>();
+		stockAttributes = new ArrayList<StockAttributes>();
+		NumberOfUsers++;
+	}
+
 	public User(String user_email, List<String> Symbols, List<StockAttributes> interestedAttributes) {
 		this.email_Address = user_email;
 		this.Interested_Stock_Symbols = Symbols;
@@ -37,18 +47,15 @@ public class User {
 		NumberOfUsers++;
 	}
 	
-	public User(String user_email) {
-		this.email_Address = user_email;
-	}
-	
 	public User(String user_email, List<String> Symbols) {
 		this.email_Address = user_email;
 		this.Interested_Stock_Symbols = Symbols;
 		stockAttributes = new ArrayList<StockAttributes>();
-		stockAttributes.add(StockAttributes.Price);
+		stockAttributes.add(StockAttributes.PRICE);
 		NumberOfUsers++;
 	}
 	
+
 	//Get + Set for User Email
 	public void setUserEmail(String user_email)
 	{
@@ -61,16 +68,37 @@ public class User {
 	}
 	
 	public void addInterestedStock(String stock_symbol) {
-		Interested_Stock_Symbols.add(stock_symbol);
+		//Split the String to a String Array
+		String[] stock_temp = stock_symbol.split(",");
+	
+		// for each loop to get and insert stock symbol
+        for (String str_temp : stock_temp)  
+        { 
+    		Interested_Stock_Symbols.add(str_temp);
+        } 
 		
 	}
 	
+
 	public void addInterestedStock(ArrayList<String> stocks_symbols) {
 		Interested_Stock_Symbols.addAll(stocks_symbols);
 	}
 	
 	public void addInterestedProperties(StockAttributes A_StockAttributes) {
 		stockAttributes.add(A_StockAttributes);
+	}
+	
+	public void addInterestedProperties(String A_StockAttributes) {
+		//Split the String to a String Array
+		String[] prop_temp = A_StockAttributes.split(",");
+		
+		// for each loop to get the enum of each attributes
+        for (String str_temp : prop_temp)  
+        { 
+        	StockAttributes attribute_enum = StockAttributes.valueOf(str_temp.toUpperCase());
+        	stockAttributes.add(attribute_enum);
+        } 
+		
 	}
 	
 	public String getEmail_Address() {
