@@ -1,6 +1,6 @@
 import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -23,12 +23,9 @@ import java.util.Map;
 public class User {
 	
 	private String email_Address;
-	private HashSet<String> Interested_Stock_Symbols;
-	private HashSet<StockAttributes> stockAttributes;
-	private static int NumberOfUsers = 0;
-	private static String File_Name = "UserList.csv";
-	
-	
+	private List<String> Interested_Stock_Symbols;
+	private List<StockAttributes> stockAttributes;
+	private static int NumberOfUsers = 0;	
 	
 	private Map<String, Double> user_stock = new HashMap<String, Double>(); 
 
@@ -40,7 +37,7 @@ public class User {
 		//AddUserToList();
 	}
 
-	public User(String user_email, HashSet<String> Symbols, HashSet<StockAttributes> interestedAttributes) {
+	public User(String user_email, List<String> Symbols, List<StockAttributes> interestedAttributes) {
 		this.email_Address = user_email;
 		this.Interested_Stock_Symbols = Symbols;
 		stockAttributes = interestedAttributes;
@@ -77,19 +74,19 @@ public class User {
 		this.email_Address = email_Address;
 	}
 
-	public HashSet<String> getInterested_Stock_Symbols() {
+	public List<String> getInterested_Stock_Symbols() {
 		return Interested_Stock_Symbols;
 	}
 
-	public void setInterested_Stock_Symbols(HashSet<String> interested_Stock_Symbols) {
+	public void setInterested_Stock_Symbols(List<String> interested_Stock_Symbols) {
 		Interested_Stock_Symbols = interested_Stock_Symbols;
 	}
 
-	public HashSet<StockAttributes> getStockAttributes() {
+	public List<StockAttributes> getStockAttributes() {
 		return stockAttributes;
 	}
 
-	public void setStockAttributes(HashSet<StockAttributes> stockAttributes) {
+	public void setStockAttributes(List<StockAttributes> stockAttributes) {
 		this.stockAttributes = stockAttributes;
 	}
 	

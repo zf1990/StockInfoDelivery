@@ -5,16 +5,16 @@ import javax.activation.*;
 
 
 public class EmailSender {
-	private String senderEmail = "stockinfosender@gmail.com";
+	private String senderEmail = "stockinfosender@gmail.com"; //Already regsiteredd.
 	private String password = "ApiS3nd#r";
 	private String Receiver_Email;
-	private Properties properties = new Properties();
-	private String emailMessage = "Please see the attached for your stock information";
-	private String subject = "Your Stock Information" + (new Date()).toString();
-	private String file_name;
-	private Session theSession;
-	private Message the_Message;
-	public boolean SuccessfullySent = false;
+	private Properties properties = new Properties(); //This is just like a hashset.
+	private String emailMessage = "Please see the attached for your stock information"; //Default email message
+	private String subject = "Your Stock Information " + (new Date()).toString();
+	private String file_name; //File name to be attached with the email.
+	private Session theSession; 
+	private Message the_Message; //This is for the the email content
+	public boolean SuccessfullySent = false; //A boolean that will be changed once the email is successfully sent.
 	
 	public EmailSender(String fileName, String receiver_email) {
 		file_name = fileName;
