@@ -140,30 +140,17 @@ public class Main {
     		//Variable - example: SNBR,SPWR,OKTA,MSFT
     		APIRepository api_repo = new APIRepository(stock_symbols);
     		//String response = api_repo.sendGetRequest();
-			
+    		
     		//Map Response to JSON Object
-			JSONObject stock_json = new JSONObject(api_repo.sendGetRequest());
-			
-			//When there are multiple Company stock
-			if(stock_json.has("companiesPriceList"))
-			{
-				JSONArray results = (JSONArray) stock_json.get("companiesPriceList");
-				//Go through each Stock
-				for (int i = 0; i < results.length(); i++) {
-					JSONObject temp_stock = results.getJSONObject(i);
-					
-					//Insertupdate the user stock information
-					user.stockInsertUpdate(temp_stock.getString("symbol"), temp_stock.getDouble("price"));
-				}
-
-			}
-			else //When there is only one Company stock
-			{
-				//StdOut.println(stock_json.toString());
-				//StdOut.println(stock_json.getDouble("price"));
+			//JSONObject stock_json = new JSONObject(api_repo.sendGetRequest());
+    		JSONArray stock_json = new JSONArray(api_repo.sendGetRequest());
+    		
+			//Go through each Stock
+			for (int i = 0; i < stock_json.length(); i++) {
+				JSONObject temp_stock = stock_json.getJSONObject(i);
 				
-				//Add the Stock to current user
-				user.stockInsertUpdate(stock_name, stock_json.getDouble("price"));
+				//Insertupdate the user stock information
+				user.stockInsertUpdate(temp_stock.getString("symbol"), temp_stock.getDouble("price"));
 			}
     		
 			StdOut.println("\n");

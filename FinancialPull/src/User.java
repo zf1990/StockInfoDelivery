@@ -30,7 +30,7 @@ public class User {
 	
 	
 	
-	private Map<String, Double> user_stock; 
+	private Map<String, Double> user_stock = new HashMap<String, Double>(); 
 
 	//Constructor
 	public User(String user_email)
@@ -105,11 +105,14 @@ public class User {
 	public String getUserStock()
 	{
 		String stock_list = "";
-		for (Map.Entry<String, Double> entry : user_stock.entrySet()) {
-		    String key = entry.getKey();
-		    Double val = entry.getValue();
-		    
-		    stock_list = stock_list + key + ": " + val + "\n";
+		if(user_stock != null)
+		{
+			for (Map.Entry<String, Double> entry : user_stock.entrySet()) {
+			    String key = entry.getKey();
+			    Double val = entry.getValue();
+			    
+			    stock_list = stock_list + key + ": " + val + "\n";
+			}
 		}
 		return stock_list;
 	}
@@ -125,6 +128,7 @@ public class User {
 			if(user_stock.get(stock_name) != stock_price)
 			{
 				//TO-DO send out email
+	    		StdOut.println("TO-DO");
 			}
 		}
 		
