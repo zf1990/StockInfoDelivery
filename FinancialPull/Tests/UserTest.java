@@ -58,7 +58,8 @@ class UserTest {
 		test_attr.add(StockAttributes.PRICE);
 		test_attr.add(StockAttributes.MARKETCAP);
 		
-		test_symb = (Arrays.asList((new String[] {"V", "MMM", "UAL"})));
+		test_symb = (new ArrayList<String> (
+				Arrays.asList("V","MMM","UAL")));
 		
 		User user = new User(test_email, test_symb, test_attr);
 		
@@ -77,7 +78,8 @@ class UserTest {
 		test_attr.add(StockAttributes.PRICE);
 		test_attr.add(StockAttributes.MARKETCAP);
 		
-		test_symb = (Arrays.asList((new String[] {"V", "MMM", "UAL"})));
+		test_symb = (new ArrayList<String> (
+				Arrays.asList("V","MMM","UAL")));
 		
 		User user = new User(test_email, test_symb, test_attr);
 		
@@ -97,7 +99,8 @@ class UserTest {
 		test_attr.add(StockAttributes.PRICE);
 		test_attr.add(StockAttributes.MARKETCAP);
 		
-		test_symb = (Arrays.asList((new String[] {"V", "MMM", "UAL"})));
+		test_symb = (new ArrayList<String> (
+				Arrays.asList("V","MMM","UAL")));
 		
 		User user = new User(test_email, test_symb, test_attr);
 		
@@ -118,7 +121,8 @@ class UserTest {
 		test_attr.add(StockAttributes.PRICE);
 		test_attr.add(StockAttributes.MARKETCAP);
 		
-		test_symb = (Arrays.asList((new String[] {"V", "MMM", "UAL"})));
+		test_symb = (new ArrayList<String> (
+				Arrays.asList("V","MMM","UAL")));
 		
 		User user = new User(test_email, test_symb, test_attr);
 		
@@ -126,7 +130,7 @@ class UserTest {
 		
 		user.setInterested_Stock_Symbols(newStocks);
 		
-		assertSame(user.getStockAttributes(), newStocks);
+		assertSame(user.getInterested_Stock_Symbols(), newStocks);
 
 	}
 	

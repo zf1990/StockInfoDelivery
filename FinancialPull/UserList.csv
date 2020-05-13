@@ -1,4 +1,4 @@
-﻿User Email,Interested Stocks,Interested Properties
-zhou.fang@stthomas.edu,MSFT-ACTI-EA-SPWR-NVDA-AAPL,Price-Change_Percentage-Market_Cap-Volume
-nguy1766@stthomas.edu,AAPL-GOOG,Price-Market_Cap-Volume-Exchange
-nick1030@stthomas.edu,TGT-V-AXP-BAC,Price-Change_Percentage-Daily_Low-Daily_High
+User Email,Interested Stocks,Interested Properties
+zhou.fang@stthomas.edu,MSFT-ACTI-EA-SPWR-NVDA-AAPL,PRICE-CHANGEPERCENTAGE-MARKETCAP-VOLUME
+nguy1766@stthomas.edu,AAPL-GOOG,PRICE-MARKETCAP-VOLUME-EXCHANGE
+nick1030@stthomas.edu,TGT-V-AXP-BAC,PRICE-CHANGEPERCENTAGE-DAYLOW-DAYHIGH
