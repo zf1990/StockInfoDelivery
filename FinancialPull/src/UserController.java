@@ -3,13 +3,14 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
-public class Controller {
+public class UserController {
 	public APIRepository APIHandler = new APIRepository();
 	public HashSet<User> userList;
+	public final String userFileName = "UserList.csv";
 	public UI UIDisplay;
 	CSVWriter writer;
 	
-	public Controller() {
+	public UserController() {
 		userList = new HashSet<User>();
 		UI Display = new UI();
 		writer = new CSVWriter();
@@ -20,29 +21,50 @@ public class Controller {
 		userList.add(New_user);
 	}
 	
-	public void PopulateAndConstructUsers() {
-		
-	}
-	
 	public void saveUsersToFile() {
+		ArrayList<String> rows = new ArrayList<String>();
+		String columnHeader = "User Email,Interested Stocks,Interested Properties"; //Important: Don't put spaces after period
+		rows.add(columnHeader);
+		
+		for(User user: userList) {
+			String email = user.getEmail_Address(); //This is a csv file, write the next field.
+			List<String> stockList = user.getInterested_Stock_Symbols();
+			String stocks = String.join("-", stockList);
+			List<StockAttributes> attributeList = user.getStockAttributes();
+			List<String> attributeStringList = new ArrayList<String>();
+			
+			for(StockAttributes attr : attributeList) {
+				attributeStringList.add(attr.toString());
+			}
+			
+			String attributes = String.join("-", attributeStringList);
+			
+			String row = email + "," + stocks + "," + attributes;
+			rows.add(row);
+		}
+		
+		CSVWriter.writeFile(userFileName, rows);
+		
 		
 	}
 	
 	public void readAndLoadUsers() {
-		CSVReader reader = new CSVReader("UserList.csv");
+		CSVReader reader = new CSVReader(userFileName);
 		ArrayList<String> rows = reader.ReadFile();
 		
 		String headerRow = rows.get(0);
+		
 		List<String> columnHeaders = Arrays.asList(headerRow.split(",")); //Turning this into a list because Java does not seem to have a natural find or indexOf method in array.
 		int emailIndex = columnHeaders.indexOf("User Email"); //These should be exact and should obtain the index.  The reason why I did not use 0,1,2 directly is due to future scalability issue
 		int userStockIndex = columnHeaders.indexOf("Interested Stocks");
 		int AttributeIndex = columnHeaders.indexOf("Interested Properties");
 		
+		//Reading each user and add them to the userList HashSet
 		for(int i=1; i<rows.size(); i++) { //Starting at 2nd row because that's where the data actually lives.
 			String row = rows.get(i);
 			String[] userInfo = row.split(",");
 			String userEmail = userInfo[emailIndex]; //Email Should be within the first column.
-			List<String> userStocks = Arrays.asList(userInfo[userStockIndex].split("-")); //Get the list of stocks the user is interested in. Stored in the 2nd column of the UserList.csv file.
+			List<String> userStocks = Arrays.asList(userInfo[userStockIndex].split("-")); //Get the list of stocks the user is interested in.
 			String[] userAttributeArray = userInfo[AttributeIndex].split("-"); //Get the list of Attributes the user is interested in.  Stored in the 3rd Column
 			ArrayList<StockAttributes> userAttributes = new ArrayList<StockAttributes>();
 			for(String j : userAttributeArray) {
@@ -52,14 +74,14 @@ public class Controller {
 		}
 	}
 	
+	public void WriteStockInfo() {
+		
+	}
 	
+	public void getStocksInformation(List<String> symbs) {
+		
+	}
 	
-	
-	
-	
-	
-	
-	
-	
+
 
 }

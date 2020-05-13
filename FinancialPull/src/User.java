@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.List;
@@ -25,17 +26,9 @@ public class User {
 	private String email_Address;
 	private List<String> Interested_Stock_Symbols;
 	private List<StockAttributes> stockAttributes;
-	private static int NumberOfUsers = 0;	
+	private static int NumberOfUsers = 0;
 	
 	private Map<String, Double> user_stock = new HashMap<String, Double>(); 
-
-	//Constructor
-	public User(String user_email)
-	{
-		this.email_Address = user_email;
-		NumberOfUsers++;
-		//AddUserToList();
-	}
 
 	public User(String user_email, List<String> Symbols, List<StockAttributes> interestedAttributes) {
 		this.email_Address = user_email;
@@ -44,7 +37,17 @@ public class User {
 		NumberOfUsers++;
 	}
 	
+	public User(String user_email) {
+		this.email_Address = user_email;
+	}
 	
+	public User(String user_email, List<String> Symbols) {
+		this.email_Address = user_email;
+		this.Interested_Stock_Symbols = Symbols;
+		stockAttributes = new ArrayList<StockAttributes>();
+		stockAttributes.add(StockAttributes.Price);
+		NumberOfUsers++;
+	}
 	
 	//Get + Set for User Email
 	public void setUserEmail(String user_email)
@@ -60,6 +63,10 @@ public class User {
 	public void addInterestedStock(String stock_symbol) {
 		Interested_Stock_Symbols.add(stock_symbol);
 		
+	}
+	
+	public void addInterestedStock(ArrayList<String> stocks_symbols) {
+		Interested_Stock_Symbols.addAll(stocks_symbols);
 	}
 	
 	public void addInterestedProperties(StockAttributes A_StockAttributes) {
@@ -90,7 +97,7 @@ public class User {
 		this.stockAttributes = stockAttributes;
 	}
 	
-	public int getNumberOfUsers() {
+	public static int getNumberOfUsers() {
 		return NumberOfUsers;
 	}
 	//Get + Set for User Stock
