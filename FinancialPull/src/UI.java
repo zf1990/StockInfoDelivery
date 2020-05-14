@@ -27,7 +27,7 @@ public class UI
 	//Constructor
 	public UI()
 	{
-		StdOut.println("******Welcome to the financial manager******");
+		StdOut.println("****** Welcome to the Financial Manager ******");
 	}
 
 	//For main menu
@@ -39,11 +39,11 @@ public class UI
 		var valid_list = List.of("1", "2", "3", "4");
 		
 		StdOut.println();
-		StdOut.println("****Main Menu****");
-		StdOut.println("Please choose one of the option below:");
+		StdOut.println("**** Main Menu ****");
+		StdOut.println("Please choose one of the options below:");
 		StdOut.println("1. View existing email subscriptions");
 		StdOut.println("2. Add/Update new email subscriber");
-		StdOut.println("3. Send Email to all subscriber");
+		StdOut.println("3. Send email to all subscribers");
 		StdOut.println("4. Exit");
 		
 		StdOut.print("Option:");
@@ -68,7 +68,7 @@ public class UI
 		var valid_list = List.of("1");
 		
 		StdOut.println();
-		StdOut.println("***User Summary****");
+		StdOut.println("*** User Summary ****");
 		StdOut.println("Current user subscriptions:");
 		StdOut.println(user_list);
 		
@@ -95,12 +95,12 @@ public class UI
 		var valid_list = List.of("1");
 		
 		StdOut.println();
-		StdOut.println("***Adding or Updating new User****");
+		StdOut.println("*** Adding or Updating New User ****");
 		StdOut.println("NOTE: if the email already existed in the subscribed list, the record will be replaced.");
 		StdOut.println();
 		StdOut.print("User Email: ");
 		user_email = StdIn.readLine();
-		StdOut.print("List of interested stock: ");
+		StdOut.print("List of interested stocks: ");
 		user_stock = StdIn.readLine();
 		StdOut.print("List of attributes: ");
 		user_attribute = StdIn.readLine();
@@ -133,7 +133,7 @@ public class UI
 			return false;
 	}
 	
-	//Function to prinout
+	//Function to print out
 	public void printout(String str)
 	{
 		StdOut.print(str);

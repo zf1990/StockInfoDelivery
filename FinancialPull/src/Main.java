@@ -140,7 +140,7 @@ public class Main {
 			 output_string += "\n";
 			 
 			 //Iterate through attribute
-			 output_string += "Subsribed Attributes: ";
+			 output_string += "Subscribed Attributes: ";
 			 
 			//Iterate through stock list
 			 for (StockAttributes att_temp : user_att) 
@@ -154,7 +154,7 @@ public class Main {
 		 return output_string;
 	}
 	
-	//Function to Get the Email, Soctk info, and attribute list then add/update user list
+	//Function to Get the Email, Stock info, and attribute list then add/update user list
 	public static void addUpdateUser() throws Exception
 	{
 		//check if exist flag
