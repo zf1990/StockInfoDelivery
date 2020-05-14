@@ -44,11 +44,6 @@ class UserControllerTest {
 	
 	@Test
 	void testAPIRepository() {
-		UserController controller = new UserController();
-		
-		controller.getAllStocksInformation();
-		
-		assertFalse(controller.getAPI_response_Dict().isEmpty());
 	}
 
 }

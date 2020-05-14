@@ -5,14 +5,15 @@ public class UserController {
 	private final String userFileName = "UserList.csv";
 	//private UI UIDisplay; //Don't know if this is still needed.
 	CSVWriter writer;
-	HashMap<String, String> API_response_Dict;
+	List<String> StockFileNames;
 	
 	public UserController() {
 		userList = new HashSet<User>();
 		//UI Display = new UI();
 		writer = new CSVWriter();
+		StockFileNames = new ArrayList<String>();
 		readAndLoadUsers();
-		API_response_Dict = new HashMap<String, String>();
+		
 	}
 
 	public void addUsers(String emailAddress, List<String> InterestedSymbols, List<StockAttributes> Attributes) {
@@ -47,6 +48,7 @@ public class UserController {
 		
 	}
 
+	//Read and load a list of users.
 	public void readAndLoadUsers() {
 		CSVReader reader = new CSVReader(userFileName);
 		ArrayList<String> rows = reader.ReadFile();
@@ -75,7 +77,7 @@ public class UserController {
 		}
 	}
 	
-	public void WriteStockInfo() {
+	public void WriteStockInfo(String user_Email, List<HashMap<String, String>> infoList) {
 		
 	}
 	
@@ -90,20 +92,15 @@ public class UserController {
 			List<String> stocks = user.getInterested_Stock_Symbols();
 			String[] symbols = new String[stocks.size()];
 			stocks.toArray(symbols);
+			List<StockAttributes> attrs = user.getStockAttributes();
 			
-			APIs[index] = new APIRepository(symbols);
+			APIs[index] = new APIRepository(symbols, attrs);
+			APIs[index].sendAndParseResponse();
 			
+			List<HashMap<String, String>> userInfo = APIs[index].getInfoArray();
+			WriteStockInfo(user.getEmail_Address(), userInfo);
 			
-			try {
-				String response = APIs[index].sendGetRequest();
-				API_response_Dict.put(user.getEmail_Address(), response);
-			} catch (Exception e) {
-				StdOut.println("Something went wrong");
-				e.printStackTrace();
-			}
 		}
-		
-		
 	}
 	
 	public HashSet<User> getUserList() {
@@ -118,9 +115,6 @@ public class UserController {
 		return userFileName;
 	}
 	
-	public HashMap<String, String> getAPI_response_Dict() {
-		return API_response_Dict;
-	}
 	
 	
 

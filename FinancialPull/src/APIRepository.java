@@ -5,10 +5,13 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -25,26 +28,45 @@ import java.util.List;
 //import com.google.gson.JsonElement;
 //import com.google.gson.JsonParser;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 
 public class APIRepository {
 	
 	//private variable
 	
-	private String URL = "https://financialmodelingprep.com/api/v3/quote/";
+	private static final String URL = "https://financialmodelingprep.com/api/v3/quote";
 	private String[] Symbols;
-	private HashSet<String> Data_Attributes;
+	private List<StockAttributes> attrs;
     private HttpClient httpClient = HttpClient.newHttpClient();
-//    		= 
-//    		HttpClient.newBuilder()
-//            .build();
-
-	public APIRepository() {
-	}
+    private String JsonResponse;
     
-	public APIRepository(String[] symbols, HashSet<String> Data_Attributes) {
+    private List<HashMap<String, String>> infoList  = new ArrayList<HashMap<String, String>>();
+    private static final HashMap<StockAttributes,String> keyMatch = new HashMap<StockAttributes,String>() {{
+    	put(StockAttributes.PRICE, "price");//double
+    	put(StockAttributes.CHANGEPERCENTAGE, "changesPercentage"); //double
+    	put(StockAttributes.CHANGE, "change"); //double
+    	put(StockAttributes.DAYLOW, "dayLow"); //double
+    	put(StockAttributes.DAYHIGH, "dayHigh"); //double
+    	put(StockAttributes.YEARHIGH, "yearHigh"); //double
+    	put(StockAttributes.YEARLOW, "yearLow"); //double
+    	put(StockAttributes.MARKETCAP, "marketCap"); //double
+    	put(StockAttributes.PRICEAVG50, "priceAvg50"); //double
+    	put(StockAttributes.PRICEAVG200, "priceAvg200"); //double
+    	put(StockAttributes.VOLUME, "volume"); //int
+    	put(StockAttributes.AVGVOLUME, "avgVolume"); //int
+    	put(StockAttributes.EXCHANGE, "exhange"); //String
+    	put(StockAttributes.EPS, "eps");//double
+    	put(StockAttributes.PERATIO, "pe"); //double
+    	put(StockAttributes.SHARESOUTSTANDING, "sharesOutstanding"); //long
+    	
+    }};
+    
+    
+	public APIRepository(String[] symbols, List<StockAttributes> Data_Attributes) {
 		this.Symbols = symbols;
-		this.Data_Attributes = Data_Attributes;
+		this.attrs = Data_Attributes;
 	}
 	
 	public APIRepository(String[] symbols) {
@@ -57,7 +79,34 @@ public class APIRepository {
 		return Combined_URL;
 	}
 	
-	public String sendGetRequest() throws Exception {
+	public void parseResponse() {
+		JSONArray stocks_json = new JSONArray(JsonResponse);
+
+		for (int i=0; i<stocks_json.length(); i++) {
+			JSONObject oneStock = stocks_json.getJSONObject(i);
+			
+			HashMap<String, String> oneStockInfo = new HashMap<String,String>();
+			oneStockInfo.put("Symbol", oneStock.getString("symbol"));
+			oneStockInfo.put("Name", oneStock.getString("name"));
+			
+			for(StockAttributes j : attrs) {
+				String keyword = keyMatch.get(j);
+				String info = oneStock.get(keyword).toString(); //Turn everything to string and save it to a dictionary.
+				
+				oneStockInfo.put(keyword, info);				
+			}
+			infoList.add(oneStockInfo);
+		}
+	}
+	
+	public void sendAndParseResponse() {
+		sendGetRequest();
+		parseResponse();
+		//System.out.println(infoArray); <--Made sure responses were correct.
+	}
+	
+	
+	public String sendGetRequest(){
 
 		String apiURL = urlCombination();
 		HttpRequest request = HttpRequest.newBuilder().
@@ -65,15 +114,23 @@ public class APIRepository {
 				uri(URI.create(apiURL)).
 				build();
 			
-		/*return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-			.thenApply(HttpResponse::body); //Double colon is a lambda expression*/
-			//.thenAccept(System.out::println);
-			//.join(); //Must have it to print results to window.
 		
 		CompletableFuture<HttpResponse<String>> response =
                 httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
 
-        return response.thenApply(HttpResponse::body).get(5, TimeUnit.SECONDS);
+		try {
+			JsonResponse = response.thenApply(HttpResponse::body).get(5, TimeUnit.SECONDS);
+		} catch (InterruptedException | ExecutionException | TimeoutException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        return JsonResponse;
 							
 	}
+	
+    public List<HashMap<String, String>> getInfoArray() { //This is what is being returned.
+		return infoList;
+	}
+	
+	
 }
