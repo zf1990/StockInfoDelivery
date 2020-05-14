@@ -41,6 +41,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import javax.swing.JButton;
@@ -61,18 +64,76 @@ public class Main {
     private String stock_code;
     //private String[] stock_symbols;
 
-	public static void main(String[] args) throws Exception { 
+	public static void main(String[] args) throws Exception{ 
+		
+		//Initialize
+		UserController user_controller = new UserController();
+		HashSet<User> user_list = new HashSet<User>();
+		
+		//Getting the list of user from CSV
+		user_list = user_controller.getUserList();
+		
+		//FINAL CODE
+		//Initilize the Main Menu
+		UI ui = new UI();
+		String option_input = ui.mainMenu();
+		//StdOut.println(user_list);
+		if(option_input.equals("1")) //View the current list of user
+		{
+			String output_string = "\n";
+
+			//Get information for each user
+			 for (User user : user_list) 
+			 {
+				 String user_email = user.getEmail_Address();
+				 List<String> user_stock = user.getInterested_Stock_Symbols();
+				 List<StockAttributes> user_att = user.getStockAttributes();
+				 
+				 //Construct the output String
+				 output_string = output_string + "User Email: " + user_email + "\n"; //Add Email
+				 
+				 //Add Email
+				 output_string += "Interested Stock: ";
+				 
+				 //Iterate through stock list
+				 for (String stock_temp : user_stock) 
+				 {
+					 output_string += stock_temp + " ";
+				 }
+				 
+				 output_string += "\n";
+				 
+				 //Iterate through attribute
+				 output_string += "Subsribed Attributes: ";
+				 
+				//Iterate through stock list
+				 for (StockAttributes att_temp : user_att) 
+				 {
+					 output_string += att_temp.name() + " ";
+				 }
+				 
+				 output_string+="\n\n";
+			 }
+			 
+			 ui.subscribedUser(output_string);
+		}
+		else
+		{
+			//TODO
+		}
+		
+		//FINAL CODE
 		
  		//Stock example: SNBR,SPWR,OKTA,MSFT
 
 		//Create new User
-		ArrayList<User> User_list = new ArrayList<User>();
+		//ArrayList<User> User_list = new ArrayList<User>();
 		
 		//Load the user from the existing JSON File
 		//TO-DO
 		
 		//Menu
-		int a = 1;
+		/*int a = 1;
 		while(a < 3)
 		{
 			//getting information for User
@@ -103,7 +164,7 @@ public class Main {
 		//Convert the user to JSON string for storing
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonString = mapper.writeValueAsString(User_list);
-		System.out.println("ResultingJSONstring = " + jsonString);
+		System.out.println("ResultingJSONstring = " + jsonString);*/
 
 		
 		//SAMPLE CODE
