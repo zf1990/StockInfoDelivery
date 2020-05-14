@@ -62,6 +62,7 @@ public class UI
 		//List of valid options
 		var valid_list = List.of("1");
 		
+		StdOut.println();
 		StdOut.println("Current user subscriptions:");
 		StdOut.println(user_list);
 		
