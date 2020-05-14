@@ -77,10 +77,12 @@ public class UserController {
 		}
 	}
 	
+	//Method to write stock information csv files.
 	public void WriteStockInfo(String user_Email, List<HashMap<String, String>> infoList) {
 		
 	}
 	
+	//Get all the information from StockAPI and save it as a dictionary before passing it to WriteStockInfo methods to 
 	public void getAllStocksInformation() {
 		
 		APIRepository[] APIs = new APIRepository[userList.size()];
