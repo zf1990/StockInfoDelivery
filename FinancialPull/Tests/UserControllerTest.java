@@ -41,5 +41,14 @@ class UserControllerTest {
 		controller.saveUsersToFile();
 		//Be sure to delete this dummy user from the file.
 	}
+	
+	@Test
+	void testAPIRepository() {
+		UserController controller = new UserController();
+		
+		controller.getAllStocksInformation();
+		
+		assertFalse(controller.getAPI_response_Dict().isEmpty());
+	}
 
 }

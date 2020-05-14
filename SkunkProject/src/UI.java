@@ -8,15 +8,15 @@ import edu.princeton.cs.introcs.StdOut;
 //import edu.princeton.cs.introcs.StdOut;
 
 
-
-public class UI {
-	
-	public static void main(String[] args)
-	{
-
-		StdOut.print("hello");
-
-	}
-
-
-}
+//
+//public class UI {
+//	
+//	public static void main(String[] args)
+//	{
+//
+//		StdOut.print("hello");
+//
+//	}
+//
+//
+//}

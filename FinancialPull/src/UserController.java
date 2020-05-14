@@ -3,7 +3,7 @@ import java.util.*;
 public class UserController {
 	private HashSet<User> userList;
 	private final String userFileName = "UserList.csv";
-	private UI UIDisplay;
+	//private UI UIDisplay; //Don't know if this is still needed.
 	CSVWriter writer;
 	HashMap<String, String> API_response_Dict;
 	
@@ -118,6 +118,9 @@ public class UserController {
 		return userFileName;
 	}
 	
+	public HashMap<String, String> getAPI_response_Dict() {
+		return API_response_Dict;
+	}
 	
 	
 
