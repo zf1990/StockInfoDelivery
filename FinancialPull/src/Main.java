@@ -62,13 +62,14 @@ public class Main {
 	
     private static HashSet<User> user_list;
     private static UI ui;
+    private static UserController user_controller;
 	
 	public static void main(String[] args) throws Exception{ 
 		//Stock example: SNBR,SPWR,OKTA,MSFT
 		//Initialize
 		String option_input;
 		
-		UserController user_controller = new UserController();
+		user_controller = new UserController();
 		user_list = new HashSet<User>();
 		ui = new UI();
 		
@@ -165,7 +166,14 @@ public class Main {
 		
 		//Convert user_stock to list of string type
 		List<String> new_user_stock = new ArrayList<String>();
-		new_user_stock = Arrays.asList(new_user_info[1].split(","));
+		//new_user_stock = Arrays.asList(new_user_info[1].split(","));
+		
+		String[] temp_stock_list = new_user_info[1].toUpperCase().split(",");
+		
+		for(String j : temp_stock_list)
+		{
+			new_user_stock.add(j.trim());
+		}
 
 		//Convert user_attribute to list of string type
 		List<StockAttributes> user_attribute_list = new ArrayList<StockAttributes>();
@@ -174,7 +182,7 @@ public class Main {
 		
 		for(String j : temp_attribute_list)
 		{
-			StockAttributes temp_attribute = StockAttributes.valueOf(j);
+			StockAttributes temp_attribute = StockAttributes.valueOf(j.trim());
 			user_attribute_list.add(temp_attribute);
 		}
 			
@@ -182,7 +190,7 @@ public class Main {
 		for (User user : user_list) 
 		{
 			//If found, then replace the current information with the new information
-			if(user.getEmail_Address().equals(user_email))
+			if(user.getEmail_Address().toUpperCase().equals(user_email.toUpperCase()))
 			{
 				user.setInterested_Stock_Symbols(new_user_stock);
 				user.setStockAttributes(user_attribute_list);
