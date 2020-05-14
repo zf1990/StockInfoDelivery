@@ -1,20 +1,18 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class UserController {
-	private APIRepository APIHandler = new APIRepository();
 	private HashSet<User> userList;
 	private final String userFileName = "UserList.csv";
 	private UI UIDisplay;
 	CSVWriter writer;
+	HashMap<String, String> API_response_Dict;
 	
 	public UserController() {
 		userList = new HashSet<User>();
 		//UI Display = new UI();
 		writer = new CSVWriter();
 		readAndLoadUsers();
+		API_response_Dict = new HashMap<String, String>();
 	}
 
 	public void addUsers(String emailAddress, List<String> InterestedSymbols, List<StockAttributes> Attributes) {
@@ -53,7 +51,7 @@ public class UserController {
 		CSVReader reader = new CSVReader(userFileName);
 		ArrayList<String> rows = reader.ReadFile();
 		
-		String headerRow = rows.get(0).replace("﻿", ""); //Somehow this is added to the start of csv.  Not sure why.
+		String headerRow = rows.get(0).replace("﻿", ""); //Somehow this is added to the start of csv.  Not sure why.  Just replacing it and making sure everything else work.
 		
 		List<String> columnHeaders = Arrays.asList(headerRow.split(",")); //Turning this into a list because Java does not seem to have a natural find or indexOf method in array.
 		//Not sure why csv started with a weird symbol that was failing the first line of code.
@@ -81,7 +79,30 @@ public class UserController {
 		
 	}
 	
-	public void getStocksInformation(List<String> symbs) {
+	public void getAllStocksInformation() {
+		
+		APIRepository[] APIs = new APIRepository[userList.size()];
+		
+		int index = 0;
+		
+		for(User user: userList) {
+			
+			List<String> stocks = user.getInterested_Stock_Symbols();
+			String[] symbols = new String[stocks.size()];
+			stocks.toArray(symbols);
+			
+			APIs[index] = new APIRepository(symbols);
+			
+			
+			try {
+				String response = APIs[index].sendGetRequest();
+				API_response_Dict.put(user.getEmail_Address(), response);
+			} catch (Exception e) {
+				StdOut.println("Something went wrong");
+				e.printStackTrace();
+			}
+		}
+		
 		
 	}
 	
