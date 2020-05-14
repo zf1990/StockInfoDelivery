@@ -44,7 +44,7 @@ public class UI
 		StdOut.println("1. View existing email subscriptions");
 		StdOut.println("2. Add/Update new email subscriber");
 		StdOut.println("3. Send Email to all subscriber");
-		StdOut.println("4. Save and Exit");
+		StdOut.println("4. Exit");
 		
 		StdOut.print("Option:");
 		user_input = StdIn.readLine();
@@ -131,6 +131,12 @@ public class UI
 			return true;
 		else
 			return false;
+	}
+	
+	//Function to prinout
+	public void printout(String str)
+	{
+		StdOut.print(str);
 	}
 
 }
