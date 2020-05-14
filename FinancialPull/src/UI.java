@@ -6,7 +6,9 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -15,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
 import net.miginfocom.swing.MigLayout;
 
 
@@ -35,11 +38,13 @@ public class UI
 		//List of valid options
 		var valid_list = List.of("1", "2", "3", "4");
 		
+		StdOut.println();
+		StdOut.println("****Main Menu****");
 		StdOut.println("Please choose one of the option below:");
 		StdOut.println("1. View existing email subscriptions");
-		StdOut.println("2. Add new email subscriber");
+		StdOut.println("2. Add/Update new email subscriber");
 		StdOut.println("3. Send Email to all subscriber");
-		StdOut.println("4. Exit");
+		StdOut.println("4. Save and Exit");
 		
 		StdOut.print("Option:");
 		user_input = StdIn.readLine();
@@ -63,6 +68,7 @@ public class UI
 		var valid_list = List.of("1");
 		
 		StdOut.println();
+		StdOut.println("***User Summary****");
 		StdOut.println("Current user subscriptions:");
 		StdOut.println(user_list);
 		
@@ -75,6 +81,43 @@ public class UI
 			StdOut.print("Please input a valid option:");
 			user_input = StdIn.readLine();
 		}
+	}
+	
+	//For getting new user information
+	public String[] getNewUser()
+	{
+		String user_input;
+		String user_email;
+		String user_stock;
+		String user_attribute;
+		
+		//List of valid options
+		var valid_list = List.of("1");
+		
+		StdOut.println();
+		StdOut.println("***Adding or Updating new User****");
+		StdOut.println("NOTE: if the email already existed in the subscribed list, the record will be replaced.");
+		StdOut.println();
+		StdOut.print("User Email: ");
+		user_email = StdIn.readLine();
+		StdOut.print("List of interested stock: ");
+		user_stock = StdIn.readLine();
+		StdOut.print("List of attributes: ");
+		user_attribute = StdIn.readLine();
+		
+		String[] output_array = new String[] {user_email,user_stock,user_attribute};
+		
+		return output_array;
+		
+		/*StdOut.print("Input 1 to go back to main menu:");
+		user_input = StdIn.readLine();
+		
+		while(!isValidMenuOptions(valid_list, user_input))
+		{
+			StdOut.println();
+			StdOut.print("Please input a valid option:");
+			user_input = StdIn.readLine();
+		}*/
 	}
 
 	//Validate user input

@@ -59,16 +59,14 @@ import net.miginfocom.swing.MigLayout;
 
 public class Main {
 	
-	
-	//private String user_email;
-    //private String stock_code;
-    //private String[] stock_symbols;
+    private static HashSet<User> user_list;
 	
 	public static void main(String[] args) throws Exception{ 
-		
+		//Stock example: SNBR,SPWR,OKTA,MSFT
 		//Initialize
+		String option_input;
 		UserController user_controller = new UserController();
-		HashSet<User> user_list = new HashSet<User>();
+		//HashSet<User> user_list = new HashSet<User>();
 		
 		//Getting the list of user from CSV
 		user_list = user_controller.getUserList();
@@ -76,119 +74,71 @@ public class Main {
 		//FINAL CODE
 		//Initilize the Main Menu
 		UI ui = new UI();
-		String option_input = ui.mainMenu();
-		//StdOut.println(user_list);
-		if(option_input.equals("1")) //View the current list of user
+		
+		//While loop for showing the main menu
+		do
 		{
-			ui.subscribedUser(user_summary(user_list));
-		}
-		else
-		{
-			//TODO
-		}
-		
-		//FINAL CODE
-		
- 		//Stock example: SNBR,SPWR,OKTA,MSFT
-
-		//Create new User
-		//ArrayList<User> User_list = new ArrayList<User>();
-		
-		//Load the user from the existing JSON File
-		//TO-DO
-		
-		//Menu
-		/*int a = 1;
-		while(a < 3)
-		{
-			//getting information for User
-			StdOut.println("Please Enter your Email:");
-			String user_email = StdIn.readLine();
-			
-			StdOut.println("Specify list of Stock:");
-			String stock_list = StdIn.readLine();
-			
-			StdOut.println("Specify list of attribute:");
-			String attribute_list = StdIn.readLine();
-			
-			//Inititlize user
-			User user = new User(user_email);
-			
-			//Adding Stock and attribute to User
-			//SNBR,SPWR,OKTA,MSFT
-			//price, open, change
-			user.addInterestedStock(stock_list);
-			user.addInterestedProperties(attribute_list);
-			
-			//Add User to the user list
-			User_list.add(user);
-			
-			a++;
-		}
-		
-		//Convert the user to JSON string for storing
-		ObjectMapper mapper = new ObjectMapper();
-		String jsonString = mapper.writeValueAsString(User_list);
-		System.out.println("ResultingJSONstring = " + jsonString);*/
-
-		
-		//SAMPLE CODE
-		/*int a = 1;
-		while(a < 3)
-		{
-			a++;
-			//Testing out the User class
-			StdOut.println("Please input Email:");
-			String input_email = StdIn.readLine();
-			
-			User user = new User(input_email);
-			
-			
-			
-			//Testing out the User class
-			StdOut.println("\n");
-			StdOut.println("Adding Stock Name:");
-			String stock_name = StdIn.readLine();
-		
-			//getting Price and store it for the User
-            //Convert Stock list from String to String Array
-            String[] stock_symbols = stock_name.split(",");
-            
-    		//Variable - example: SNBR,SPWR,OKTA,MSFT
-    		APIRepository api_repo = new APIRepository(stock_symbols);
-    		//String response = api_repo.sendGetRequest();
-    		
-    		//Map Response to JSON Object
-			//JSONObject stock_json = new JSONObject(api_repo.sendGetRequest());
-    		JSONArray stock_json = new JSONArray(api_repo.sendGetRequest());
-    		
-			//Go through each Stock
-			for (int i = 0; i < stock_json.length(); i++) {
-				JSONObject temp_stock = stock_json.getJSONObject(i);
-				
-				//Insertupdate the user stock information
-				user.stockInsertUpdate(temp_stock.getString("symbol"), temp_stock.getDouble("price"));
+			option_input = ui.mainMenu();
+			//StdOut.println(user_list);
+			if(option_input.equals("1")) //View the current list of user
+			{
+				ui.subscribedUser(user_summary());
 			}
-			
-			//Showing current stock
-			StdOut.println("Currently registered stock:");
-			String user_stock_list = (user.getUserStock() != "") ? user.getUserStock() : "None";
-			StdOut.println(user_stock_list);
-			
-			User_list.add(user);
+			else if(option_input.equals("2")) //Add or update the user
+			{
+				//check if exist flag
+				boolean existing_flag = false;
+				
+				String[] new_user_info = ui.getNewUser(); //0 - Email, 1 - Stock, 2 - Attribute
+				
+				String user_email = new_user_info[0];
+				
+				//Convert user_stock to list of string type
+				List<String> new_user_stock = new ArrayList<String>();
+				new_user_stock = Arrays.asList(new_user_info[1].split(","));
+	
+				//Convert user_attribute to list of string type
+				List<StockAttributes> user_attribute_list = new ArrayList<StockAttributes>();
+				
+				String[] temp_attribute_list = new_user_info[2].toUpperCase().split(",");
+				
+				for(String j : temp_attribute_list)
+				{
+					StockAttributes temp_attribute = StockAttributes.valueOf(j);
+					user_attribute_list.add(temp_attribute);
+				}
+					
+				//Check to see if this email already exist in the system
+				for (User user : user_list) 
+				{
+					//If found, then replace the current information with the new information
+					if(user.getEmail_Address().equals(user_email))
+					{
+						user.setInterested_Stock_Symbols(new_user_stock);
+						user.setStockAttributes(user_attribute_list);
+						existing_flag = true;
+						break;
+					}
+				}
+				
+				//If not found, then add new user to the list
+				if(!existing_flag)
+				{
+					User new_user = new User(user_email, new_user_stock, user_attribute_list);
+					user_list.add(new_user);
+				}
+			}
+			else
+			{
+				//TODO
+			}
+		
 		}
-		
-		ObjectMapper mapper = new ObjectMapper();
-		  String jsonString = mapper.writeValueAsString(User_list);
-		  System.out.println("ResultingJSONstring = " + jsonString);
-		  //System.out.println(json);
-		
-		StdOut.println("\n");*/
-		//SAMPLE CODE
+		while(!option_input.equals("4"));
 	}
 	
-	//Function to prepare user subsribed summary 
-	public static String user_summary(HashSet<User> user_list)
+	//Function to prepare user subscribed summary 
+	public static String user_summary()
 	{
 		String output_string = "\n";
 
