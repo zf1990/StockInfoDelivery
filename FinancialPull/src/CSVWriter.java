@@ -10,39 +10,39 @@ public class CSVWriter {
 	public CSVWriter() {
 	}
 	
-	public static void AddLines(String FileName, List<String> line) { //Append to the file.
-		FileWriter fw;
-		try {
-			fw = new FileWriter(FileName, true);
-			BufferedWriter bw = new BufferedWriter(fw);
-			PrintWriter pw = new PrintWriter(bw);
-			
-			for(String i: line) {
-				pw.println(i);
-			}			
-			pw.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println("Please close the file before continuing.");
-		}
-
-		
-		//The Project was not built due to "release 6 is not found in the system
-	}
-	
-	public static void AddLine(String FileName, String a_line) {
-		FileWriter fw;
-		try {
-			fw = new FileWriter(FileName, true);
-			BufferedWriter bw = new BufferedWriter(fw);
-			PrintWriter pw = new PrintWriter(bw);
-			pw.println(a_line);
-			pw.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println("Please close the file before continuing.");
-		}
-	}
+//	public static void AddLines(String FileName, List<String> line) { //Append to the file.
+//		FileWriter fw;
+//		try {
+//			fw = new FileWriter(FileName, true);
+//			BufferedWriter bw = new BufferedWriter(fw);
+//			PrintWriter pw = new PrintWriter(bw);
+//			
+//			for(String i: line) {
+//				pw.println(i);
+//			}			
+//			pw.close();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			System.out.println("Please close the file before continuing.");
+//		}
+//
+//		
+//		//The Project was not built due to "release 6 is not found in the system
+//	}
+//	
+//	public static void AddLine(String FileName, String a_line) {
+//		FileWriter fw;
+//		try {
+//			fw = new FileWriter(FileName, true);
+//			BufferedWriter bw = new BufferedWriter(fw);
+//			PrintWriter pw = new PrintWriter(bw);
+//			pw.println(a_line);
+//			pw.close();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			System.out.println("Please close the file before continuing.");
+//		}
+//	}
 
 	public static void writeFile(String FileName, List<String> lines) { //Write to a new file.
 		FileWriter fw;
