@@ -102,6 +102,10 @@ public class Main {
 				}
 				ui.printout("\n");
 			}
+			else if(option_input.equals("4")) {
+				ui.printout("Goodbye!");
+				user_controller.saveUsersToFile();
+			}
 		
 		}
 		while(!option_input.equals("4"));
