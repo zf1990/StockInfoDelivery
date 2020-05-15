@@ -87,11 +87,11 @@ public class Main {
 			}
 			else if(option_input.equals("3"))
 			{
-				//TODO - call the send email to send out email
+				//call the send email to send out email
 				user_controller.CheckStockAndSendEmail();
-				//TODO - call the send email to send out email
+
 				ui.printout("\n");
-				ui.printout("Email is sent to all subscribed users!\n\n");
+				ui.printout("Email is sent to all subscribed users with stock information!\n\n");
 				ui.printout("Moving back to main menu");
 				int sec = 3;
 				while(sec > 0)

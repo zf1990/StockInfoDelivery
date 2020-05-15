@@ -113,9 +113,5 @@ public class User {
 	public static int getNumberOfUsers() {
 		return NumberOfUsers;
 	}
-	//Get + Set for User Stock
-	public void setUserStock(Map<String, Double> user_stock) 
-	{
-		this.user_stock = user_stock;
-	}
+
 }
