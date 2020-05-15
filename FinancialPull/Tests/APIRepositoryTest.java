@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 class APIRepositoryTest {
 
 	@Test
-	void testSendGetRequest() {
+	void test_Send_Get_Request() {
 		
 		String[] stocks = new String[] {"MSFT", "AAPL", "EA", "ATVI", "UAL"};
 		List<StockAttributes> test_attr = new ArrayList<StockAttributes>();
@@ -25,4 +25,11 @@ class APIRepositoryTest {
 		assertTrue(api.getInfoArray().size()==5);
 	}
 
+	@Test
+	void test_get_symbol() {
+		String[] test_symbol = new String[] {"Test"};
+		APIRepository test_repo = new APIRepository(test_symbol);
+		
+		assertEquals(test_symbol,test_repo.getSymbols());
+	}
 }

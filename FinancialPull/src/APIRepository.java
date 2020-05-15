@@ -73,6 +73,11 @@ public class APIRepository {
 		this.Symbols = symbols;
 	}
 	
+	public String[] getSymbols()
+	{
+		return this.Symbols;
+	}
+	
 	public String urlCombination() {
 		String joinedSymbols = String.join(",", Symbols);
 		String Combined_URL = "" + URL + "/" + joinedSymbols;

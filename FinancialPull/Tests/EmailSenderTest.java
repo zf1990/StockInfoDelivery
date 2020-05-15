@@ -13,6 +13,12 @@ class EmailSenderTest {
 		assertTrue(sender.SuccessfullySent);
 	}
 
+	@Test
+	void testEmailSenderStringStringandMsg() {
+		EmailSender sender = new EmailSender("test.csv", "zfang1216@gmail.com","test message");
+		assertTrue(sender.SuccessfullySent);
+	}
+	
 //	@Test
 //	void testEmailSenderStringStringString() {
 //		fail("Not yet implemented");
