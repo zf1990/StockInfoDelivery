@@ -11,11 +11,12 @@ class UserControllerTest {
 		UserController controller = new UserController();
 		int origUserSize = controller.getUserList().size();
 		
-		String email = "testing@test.com";
-		List<String> stocks = (new ArrayList<String>(Arrays.asList("V", "MMM", "UAL")));
+		String email = "zheng612@umn.edu";
+		List<String> stocks = (new ArrayList<String>(Arrays.asList("OKTA", "WLDN", "BABA", "TWLO", "COST", "ZM")));
 		List<StockAttributes> test_attr = new ArrayList<StockAttributes>();
 
 		test_attr.add(StockAttributes.CHANGE);
+		test_attr.add(StockAttributes.PERATIO);
 		test_attr.add(StockAttributes.PRICE);
 		test_attr.add(StockAttributes.MARKETCAP);
 
@@ -28,11 +29,13 @@ class UserControllerTest {
 	@Test
 	void testSaveUsersToFile() {
 		UserController controller = new UserController();
-		String email = "testing@test.com";
-		List<String> stocks = (new ArrayList<String>(Arrays.asList("V", "MMM", "UAL")));
+
+		String email = "zfang1216@gmail.com";
+		List<String> stocks = (new ArrayList<String>(Arrays.asList("DIS", "TSLA", "AMZN", "ICLN")));
 		List<StockAttributes> test_attr = new ArrayList<StockAttributes>();
 
 		test_attr.add(StockAttributes.CHANGE);
+		test_attr.add(StockAttributes.PERATIO);
 		test_attr.add(StockAttributes.PRICE);
 		test_attr.add(StockAttributes.MARKETCAP);
 
@@ -43,7 +46,10 @@ class UserControllerTest {
 	}
 	
 	@Test
-	void testAPIRepository() {
+	void test_getting_stocks_and_sned_emails() { //Nothing really to test
+		UserController controller = new UserController();
+		controller.getAllStocksInformation();
+		controller.sendEmails();
 	}
 
 }

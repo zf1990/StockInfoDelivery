@@ -5,10 +5,10 @@ import javax.activation.*;
 
 
 public class EmailSender {
-	private String senderEmail = "stockinfosender@gmail.com"; //Already regsiteredd.
+	private String senderEmail = "stockinfosender@gmail.com"; //Already registered.
 	private String password = "ApiS3nd#r";
 	private String Receiver_Email;
-	private Properties properties = new Properties(); //This is just like a hashset.
+	private Properties properties = new Properties(); //This is just like a HashMap.
 	private String emailMessage = "Please see the attached for your stock information"; //Default email message
 	private String subject = "Your Stock Information " + (new Date()).toString();
 	private String file_name; //File name to be attached with the email.
@@ -23,7 +23,7 @@ public class EmailSender {
 				
 	}
 	
-	public EmailSender(String fileName, String receiver_email,String message) {
+	public EmailSender(String fileName, String receiver_email, String message) {
 		file_name = fileName;
 		this.emailMessage = message;
 		this.Receiver_Email = receiver_email;
@@ -97,4 +97,6 @@ public class EmailSender {
 		
 		return message;		
 	}
+	
+	
 }

@@ -8,30 +8,37 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
+//import com.google.gson.Gson;
+//import com.google.gson.GsonBuilder;
+//import com.google.gson.JsonElement;
+//import com.google.gson.JsonParser;
 
 //import kong.unirest.HttpResponse;
 //import kong.unirest.JsonNode;
 //import kong.unirest.Unirest;
 
-public class Main {
+public class ApiPullMain {
 	// http://localhost:8080/RESTfulExample/json/product/get
 	public static void main(String[] args) {
 		//Variable
-		APIRepository api_repo = new APIRepository();
+		String[] symbols = new String[] {"SNBR", "AAPL"};
+		
+		APIRepository api_repo = new APIRepository(symbols);
+		
+		api_repo.sendGetRequest();
+		
 		//Calling the API Repo to get the Real Time Price for Apple
-		String realtimeprice = api_repo.getRealTimePrice("AAPL");
-		System.out.println("Real Time Price");
-		System.out.println(realtimeprice);
+//		String realtimeprice = api_repo.getRealTimePrice("AAPL");
+//		System.out.println("Real Time Price");
+//		System.out.println(realtimeprice);
+		
+		
 		
 		
 		//Calling the API to get historical
-		String historical = api_repo.getHistoricalPrice("AAPL",30);
-		System.out.println("Historical");
-		System.out.println(historical);
+//		String historical = api_repo.getHistoricalPrice("AAPL",30);
+//		System.out.println("Historical");
+//		System.out.println(historical);
 		
 	}
 }

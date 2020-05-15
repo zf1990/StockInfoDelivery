@@ -41,8 +41,8 @@ public class APIRepository {
 	private List<StockAttributes> attrs;
     private HttpClient httpClient = HttpClient.newHttpClient();
     private String JsonResponse;
-    
     private List<HashMap<String, String>> infoList  = new ArrayList<HashMap<String, String>>();
+    
     private static final HashMap<StockAttributes,String> keyMatch = new HashMap<StockAttributes,String>() {{
     	put(StockAttributes.PRICE, "price");//double
     	put(StockAttributes.CHANGEPERCENTAGE, "changesPercentage"); //double
@@ -86,14 +86,14 @@ public class APIRepository {
 			JSONObject oneStock = stocks_json.getJSONObject(i);
 			
 			HashMap<String, String> oneStockInfo = new HashMap<String,String>();
-			oneStockInfo.put("Symbol", oneStock.getString("symbol"));
-			oneStockInfo.put("Name", oneStock.getString("name"));
+			oneStockInfo.put("SYMBOL", oneStock.getString("symbol"));
+			oneStockInfo.put("NAME", oneStock.getString("name"));
 			
 			for(StockAttributes j : attrs) {
 				String keyword = keyMatch.get(j);
 				String info = oneStock.get(keyword).toString(); //Turn everything to string and save it to a dictionary.
 				
-				oneStockInfo.put(keyword, info);				
+				oneStockInfo.put(j.toString(), info);				
 			}
 			infoList.add(oneStockInfo);
 		}
@@ -102,7 +102,7 @@ public class APIRepository {
 	public void sendAndParseResponse() {
 		sendGetRequest();
 		parseResponse();
-		//System.out.println(infoArray); <--Made sure responses were correct.
+		//System.out.println(infoList); //<--Made sure responses were correct.
 	}
 	
 	

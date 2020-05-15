@@ -1,4 +1,12 @@
-
+import java.net.URI;
+import java.net.URLEncoder;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.net.http.HttpResponse.BodyHandlers;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,20 +14,41 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
+import java.util.HashSet;
+import java.util.List;
 //import kong.unirest.HttpResponse;
 //import kong.unirest.JsonNode;
 //import kong.unirest.Unirest;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
+//import com.google.gson.Gson;
+//import com.google.gson.GsonBuilder;
+//import com.google.gson.JsonElement;
+//import com.google.gson.JsonParser;
 
 
 
 public class APIRepository {
 	
 	//private variable
+	
+	private String URL = "https://financialmodelingprep.com/api/v3/stock/real-time-price/";
+	private String[] Symbols;
+	private HashSet<String> Data_Attributes;
+    private HttpClient httpClient = HttpClient.newHttpClient();
+//    		= 
+//    		HttpClient.newBuilder()
+//            .build();
+
+	public APIRepository() {
+	}
+    
+	public APIRepository(String[] symbols, HashSet<String> Data_Attributes) {
+		this.Symbols = symbols;
+		this.Data_Attributes = Data_Attributes;
+	}
+	
+	public APIRepository(String[] symbols) {
+		this.Symbols = symbols;
+	}
 	
 	//Method for getting real time stock price for specific Company
 	public String getRealTimePrice(String company_name)
@@ -80,6 +109,31 @@ public class APIRepository {
 		  
 		  return response;
 	}
+	
+	public String urlCombination() {
+		String joinedSymbols = String.join(",", Symbols);
+		String Combined_URL = "" + URL + "/" + joinedSymbols;
+		return Combined_URL;
+	}
+	
+	public void sendGetRequest() {
+
+		String apiURL = urlCombination();
+		HttpRequest request = HttpRequest.newBuilder().
+				GET().
+				uri(URI.create(apiURL)).
+				build();
+			
+		httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+			.thenApply(HttpResponse::body) //Double colon is a lambda expression
+			.thenAccept(System.out::println)
+			.join(); //Must have it to print results to window.
+							
+	}
+	
+	
+	
+	
 	
 	//Generic Method for making the API call and return response
 		/*public String getResponse(String apiEndPoint)

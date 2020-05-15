@@ -1,12 +1,13 @@
 import java.util.*;
 
 public class UserController {
-	private HashSet<User> userList;
-	private HashMap<String, User> userDict;
-	private final String userFileName = "UserList.csv";
+	private HashSet<User> userList; //A list of users.
+	private HashMap<String, User> userDict; //Just another way to get to the user object using their email as the key.
+	private final String userFileName = "UserList.csv"; //Stores a list of users and their information.
 	//private UI UIDisplay; //Don't know if this is still needed.
 	CSVWriter writer;
 	List<String> StockFileNames;
+	public HashMap<String, String> UserStockFileNames; //Stores user email and their file name
 	
 	public UserController() {
 		userList = new HashSet<User>();
@@ -14,6 +15,7 @@ public class UserController {
 		//UI Display = new UI();
 		writer = new CSVWriter();
 		StockFileNames = new ArrayList<String>();
+		UserStockFileNames = new HashMap<String, String>();
 		readAndLoadUsers();
 		
 	}
@@ -95,6 +97,34 @@ public class UserController {
 	
 	//Method to write stock information csv files.
 	public void WriteStockInfo(String user_Email, List<HashMap<String, String>> infoList) {
+		String userStockFile = user_Email.substring(0,4) + " Stock Info.csv";
+		UserStockFileNames.put(user_Email, userStockFile);
+		User an_User = userDict.get(user_Email);
+		List<StockAttributes> attrs = an_User.getStockAttributes();
+		
+		List<String> attributes = new ArrayList<String>();
+		attributes.add("NAME");
+		attributes.add("SYMBOL");
+		
+		String headerRow = "";
+		headerRow += "NAME,SYMBOL,";
+		for(StockAttributes i: attrs) {
+			headerRow+=i.toString() + ",";
+			attributes.add(i.toString());
+		}
+		
+		List<String> rows = new ArrayList<String>();
+		rows.add(headerRow); //Add the header row.
+		
+		for(HashMap<String,String> j: infoList) {
+			String newRow="";
+			for(String key: attributes) {
+				newRow += j.get(key) + ",";
+			}
+			rows.add(newRow);
+		}
+		
+		CSVWriter.writeFile(userStockFile, rows);
 		
 	}
 	
@@ -105,7 +135,7 @@ public class UserController {
 		
 		int index = 0;
 		
-		for(User user: userList) {
+		for(User user: userList) { //Go through every user in the list...
 			
 			List<String> stocks = user.getInterested_Stock_Symbols();
 			String[] symbols = new String[stocks.size()];
@@ -121,6 +151,18 @@ public class UserController {
 		}
 	}
 	
+	public void sendEmails() {
+		for(Map.Entry<String, String> entry : UserStockFileNames.entrySet()) {
+			//Constructor invoked is (fileName, receiver_Email)
+			EmailSender email = new EmailSender(entry.getValue(), entry.getKey());
+		}
+	}
+	
+	public void CheckStockAndSendEmail() {
+		getAllStocksInformation();
+		sendEmails();
+	}
+	
 	public HashSet<User> getUserList() {
 		return userList;
 	}
@@ -132,6 +174,8 @@ public class UserController {
 	public String getUserFileName() {
 		return userFileName;
 	}
+	
+
 	
 	
 	
