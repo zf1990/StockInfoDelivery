@@ -108,10 +108,12 @@ public class UserController {
 		
 		String headerRow = "";
 		headerRow += "NAME,SYMBOL,";
+		
 		for(StockAttributes i: attrs) {
 			headerRow+=i.toString() + ",";
 			attributes.add(i.toString());
 		}
+		headerRow=headerRow.substring(0,headerRow.length()-1); //removing the extra period at the end.
 		
 		List<String> rows = new ArrayList<String>();
 		rows.add(headerRow); //Add the header row.
@@ -119,8 +121,14 @@ public class UserController {
 		for(HashMap<String,String> j: infoList) {
 			String newRow="";
 			for(String key: attributes) {
-				newRow += j.get(key) + ",";
+				if(key.equals("NAME")) { //Some company names contain period and it may screw up the output in the csv file.
+					String companyaName = j.get(key).replace(",","");
+					newRow += companyaName + ",";
+				} else {
+					newRow += j.get(key) + ",";
+				}
 			}
+			newRow = newRow.substring(0,newRow.length()-1); //Removing the extra period at the end.
 			rows.add(newRow);
 		}
 		
