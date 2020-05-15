@@ -6,9 +6,11 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -98,26 +100,35 @@ public class UI
 		StdOut.println("*** Adding or Updating New User ****");
 		StdOut.println("NOTE: if the email already existed in the subscribed list, the record will be replaced.");
 		StdOut.println();
+		
+		//Email
 		StdOut.print("User Email: ");
 		user_email = StdIn.readLine();
+		
+		//Validate Email format
+		while(!isEmailValid(user_email))
+		{
+			StdOut.print("Please enter valid email format: ");
+			user_email = StdIn.readLine();
+		}
+		
+		//List of stock name
 		StdOut.print("List of interested stocks: ");
 		user_stock = StdIn.readLine();
+		
 		StdOut.print("List of attributes: ");
 		user_attribute = StdIn.readLine();
+		
+		//Validate list of Attributes
+		while(!isAttributeCorrect(user_attribute))
+		{
+			StdOut.print("One or more Attributes is incorrect, please input valid attributes: ");
+			user_attribute = StdIn.readLine();
+		}
 		
 		String[] output_array = new String[] {user_email,user_stock,user_attribute};
 		
 		return output_array;
-		
-		/*StdOut.print("Input 1 to go back to main menu:");
-		user_input = StdIn.readLine();
-		
-		while(!isValidMenuOptions(valid_list, user_input))
-		{
-			StdOut.println();
-			StdOut.print("Please input a valid option:");
-			user_input = StdIn.readLine();
-		}*/
 	}
 
 	//Validate user input
@@ -137,6 +148,57 @@ public class UI
 	public void printout(String str)
 	{
 		StdOut.print(str);
+	}
+	
+	//Check if Email is in valid format
+	public boolean isEmailValid(String email) 
+    { 
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+ 
+                            "[a-zA-Z0-9_+&*-]+)*@" + 
+                            "(?:[a-zA-Z0-9-]+\\.)+[a-z" + 
+                            "A-Z]{2,7}$"; 
+                              
+        Pattern pat = Pattern.compile(emailRegex); 
+        if (email == null) 
+            return false; 
+        return pat.matcher(email).matches(); 
+    }
+	
+	//Check if Attribute is correct
+	public boolean isAttributeCorrect(String input_att)
+	{
+		//Declare the list of standard attribute
+		List<String> standard_attribute = Arrays.asList(
+				"PRICE",
+				"CHANGEPERCENTAGE",
+				"CHANGE",
+				"DAYLOW",
+				"DAYHIGH",
+				"YEARHIGH",
+				"YEARLOW",
+				"MARKETCAP",
+				"PRICEAVG50",
+				"PRICEAVG200",
+				"VOLUME",
+				"AVGVOLUME",
+				"EXCHANGE",
+				"EPS",
+				"PERATIO",
+				"SHARESOUTSTANDING");
+		
+		//Check each of the input attribute
+		String[] list_input_att = input_att.toUpperCase().split(",");
+		
+		for(String temp_str : list_input_att)
+		{
+			temp_str = temp_str.trim();
+			if(!standard_attribute.contains(temp_str))
+			{
+				return false;
+			}
+		}
+		
+		return true;
 	}
 
 }
