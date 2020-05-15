@@ -87,6 +87,9 @@ public class Main {
 			}
 			else if(option_input.equals("3"))
 			{
+				ui.printout("\n");
+				ui.printout("Sending Email ...");
+				
 				//call the send email to send out email
 				user_controller.CheckStockAndSendEmail();
 
