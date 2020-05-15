@@ -2,6 +2,7 @@ import java.util.*;
 
 public class UserController {
 	private HashSet<User> userList;
+	private HashMap<String, User> userDict;
 	private final String userFileName = "UserList.csv";
 	//private UI UIDisplay; //Don't know if this is still needed.
 	CSVWriter writer;
@@ -9,6 +10,7 @@ public class UserController {
 	
 	public UserController() {
 		userList = new HashSet<User>();
+		userDict = new HashMap<String,User>();
 		//UI Display = new UI();
 		writer = new CSVWriter();
 		StockFileNames = new ArrayList<String>();
@@ -19,6 +21,20 @@ public class UserController {
 	public void addUsers(String emailAddress, List<String> InterestedSymbols, List<StockAttributes> Attributes) {
 		User New_user = new User(emailAddress, InterestedSymbols, Attributes);
 		userList.add(New_user);
+		userDict.put(emailAddress, New_user);
+	}
+	
+	public void editUser(String emailAddress, List<String> InterestedSymbols, List<StockAttributes> Attributes) {
+		User one = userDict.get(emailAddress);
+		one.setInterested_Stock_Symbols(InterestedSymbols);
+		one.setStockAttributes(Attributes);
+	}
+	
+	public void editUser(String oldEmailAddress, String newEmailAddress, List<String> InterestedSymbols, List<StockAttributes> Attributes) {
+		User one = userDict.get(oldEmailAddress);
+		one.setEmail_Address(newEmailAddress);
+		one.setInterested_Stock_Symbols(InterestedSymbols);
+		one.setStockAttributes(Attributes);
 	}
 	
 	public void saveUsersToFile() {
