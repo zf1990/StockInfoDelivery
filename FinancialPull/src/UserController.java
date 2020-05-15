@@ -96,28 +96,19 @@ public class UserController {
 	public void WriteStockInfo(String user_Email, List<HashMap<String, String>> infoList) {
 		String userStockFile = user_Email.substring(0,4) + " Stock Info.csv";
 		UserStockFileNames.put(user_Email, userStockFile);
-		User an_User = userDict.get(user_Email);
-		List<StockAttributes> attrs = an_User.getStockAttributes();
 		
-		List<String> attributes = new ArrayList<String>();
-		attributes.add("NAME");
-		attributes.add("SYMBOL");
+		//Get the header row.
+		HashMap<String, String> firstEntry = infoList.get(0);
+		Set<String> header = firstEntry.keySet();
+		String headerRow = String.join(",",header);
 		
-		String headerRow = "";
-		headerRow += "NAME,SYMBOL,";
-		
-		for(StockAttributes i: attrs) {
-			headerRow+=i.toString() + ",";
-			attributes.add(i.toString());
-		}
-		headerRow=headerRow.substring(0,headerRow.length()-1); //removing the extra period at the end.
 		
 		List<String> rows = new ArrayList<String>();
 		rows.add(headerRow); //Add the header row.
 		
 		for(HashMap<String,String> j: infoList) {
 			String newRow="";
-			for(String key: attributes) {
+			for(String key: header) {
 				if(key.equals("NAME")) { //Some company names contain period and it may screw up the output in the csv file.
 					String companyaName = j.get(key).replace(",","");
 					newRow += companyaName + ",";
