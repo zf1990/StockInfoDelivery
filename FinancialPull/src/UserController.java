@@ -32,11 +32,8 @@ public class UserController {
 		one.setStockAttributes(Attributes);
 	}
 	
-	public void editUser(String oldEmailAddress, String newEmailAddress, List<String> InterestedSymbols, List<StockAttributes> Attributes) {
-		User one = userDict.get(oldEmailAddress);
-		one.setEmail_Address(newEmailAddress);
-		one.setInterested_Stock_Symbols(InterestedSymbols);
-		one.setStockAttributes(Attributes);
+	public User getUser(String emailAddress) {
+		return userDict.get(emailAddress);
 	}
 	
 	public void saveUsersToFile() {
@@ -71,7 +68,7 @@ public class UserController {
 		CSVReader reader = new CSVReader(userFileName);
 		ArrayList<String> rows = reader.ReadFile();
 		
-		String headerRow = rows.get(0).replace("﻿", ""); //Somehow this is added to the start of csv.  Not sure why.  Just replacing it and making sure everything else work.
+		String headerRow = rows.get(0).replace("�ｻｿ", ""); //Somehow this is added to the start of csv.  Not sure why.  Just replacing it and making sure everything else work.
 		
 		List<String> columnHeaders = Arrays.asList(headerRow.split(",")); //Turning this into a list because Java does not seem to have a natural find or indexOf method in array.
 		//Not sure why csv started with a weird symbol that was failing the first line of code.
