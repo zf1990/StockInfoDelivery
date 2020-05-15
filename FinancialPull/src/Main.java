@@ -90,7 +90,7 @@ public class Main {
 				ui.printout("\n");
 				ui.printout("Sending Email ...");
 				
-				//call the send email to send out email
+				 //call the send email to send out email
 				user_controller.CheckStockAndSendEmail();
 
 				ui.printout("\n");
