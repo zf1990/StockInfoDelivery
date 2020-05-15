@@ -1,0 +1,30 @@
+How to Run – Step by step
+1) User runs main method 
+2) User chooses from 4 available options listed below
+
+Option 1) View existing email subscriptions
+•	Allows the user to view all currently subscribed emails, stocks associated with each email, and attributes of each stock
+
+Option 2) Add/ Update new email subscriber
+•	Allows the user to edit the stocks and attributes of a current email account
+•	Also allows the user to add a new email account
+
+Option 3) Send email to all subscribers
+•	Allows the user to push .csv files to each subscribed email containing the information designated for each active account
+
+Option 4) Exit
+•	Exit the application
+
+Example Run
+1) User runs main method 
+2) 2
+3) example@email
+4) GE
+5) DAYHIGH
+6) 4
+
+This example will create a new account consisting of: 
+•	Email: example@email
+•	Stock: GE
+•	Stock Attribute: DAYHIGH
+•	And then exist the console
