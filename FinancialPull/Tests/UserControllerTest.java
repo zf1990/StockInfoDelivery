@@ -30,8 +30,8 @@ class UserControllerTest {
 	void testSaveUsersToFile() {
 		UserController controller = new UserController();
 
-		String email = "zfang1216@gmail.com";
-		List<String> stocks = (new ArrayList<String>(Arrays.asList("DIS", "TSLA", "AMZN", "ICLN")));
+		String email = "zheng612@umn.edu";
+		List<String> stocks = (new ArrayList<String>(Arrays.asList("OKTA", "WLDN", "BABA", "TWLO", "COST", "ZM","DIS", "TSLA", "AMZN")));
 		List<StockAttributes> test_attr = new ArrayList<StockAttributes>();
 
 		test_attr.add(StockAttributes.CHANGE);
@@ -48,8 +48,7 @@ class UserControllerTest {
 	@Test
 	void test_getting_stocks_and_sned_emails() { //Nothing really to test
 		UserController controller = new UserController();
-		controller.getAllStocksInformation();
-		controller.sendEmails();
+		controller.CheckStockAndSendEmail();
 	}
 
 }
