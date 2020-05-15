@@ -112,11 +112,16 @@ public class UI
 			user_email = StdIn.readLine();
 		}
 		
+		StdOut.println();
+		
 		//List of stock name
-		StdOut.print("List of interested stocks: ");
+		StdOut.print("List of interested stocks (separated with ,): ");
 		user_stock = StdIn.readLine();
 		
-		StdOut.print("List of attributes: ");
+		StdOut.println();
+		
+		StdOut.print("Current list of attributes:\nPRICE\nCHANGEPERCENTAGE\nCHANGE\nDAYLOW\nDAYHIGH\nYEARHIGH\nYEARLOW\nMARKETCAP\nPRICEAVG50\nPRICEAVG200\nVOLUME\nAVGVOLUME\nEXCHANGE\nEPS\nPERATIO\nSHARESOUTSTANDING\n");
+		StdOut.print("Please choose from the above list (separated with ,): ");
 		user_attribute = StdIn.readLine();
 		
 		//Validate list of Attributes

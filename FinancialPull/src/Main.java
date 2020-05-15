@@ -60,7 +60,7 @@ import net.miginfocom.swing.MigLayout;
 
 public class Main {
 	
-    private static HashSet<User> user_list;
+    //private static HashSet<User> user_list;
     private static UI ui;
     private static UserController user_controller;
 	
@@ -70,13 +70,7 @@ public class Main {
 		String option_input;
 		
 		user_controller = new UserController();
-		user_list = new HashSet<User>();
 		ui = new UI();
-		
-		//Getting the list of user from CSV
-		user_list = user_controller.getUserList();
-		
-		//FINAL CODE
 		
 		//While loop for showing the main menu
 		do
@@ -117,9 +111,9 @@ public class Main {
 	public static String user_summary()
 	{
 		String output_string = "\n";
-
+		
 		//Get information for each user
-		 for (User user : user_list) 
+		 for (User user : user_controller.getUserList()) 
 		 {
 			 String user_email = user.getEmail_Address();
 			 List<String> user_stock = user.getInterested_Stock_Symbols();
@@ -187,13 +181,12 @@ public class Main {
 		}
 			
 		//Check to see if this email already exist in the system
-		for (User user : user_list) 
+		for (User user : user_controller.getUserList()) 
 		{
 			//If found, then replace the current information with the new information
 			if(user.getEmail_Address().toUpperCase().equals(user_email.toUpperCase()))
 			{
-				user.setInterested_Stock_Symbols(new_user_stock);
-				user.setStockAttributes(user_attribute_list);
+				user_controller.editUser(user_email, new_user_stock, user_attribute_list);
 				existing_flag = true;
 				break;
 			}
@@ -202,11 +195,8 @@ public class Main {
 		//If not found, then add new user to the list
 		if(!existing_flag)
 		{
-			User new_user = new User(user_email, new_user_stock, user_attribute_list);
-			user_list.add(new_user);
+			user_controller.addUsers(user_email, new_user_stock, user_attribute_list);
 		}
-		
-		//TO-DO UPDATE THE CSV WITH THE NEW LIST --TODO
 		
 		//Delay before moving back to Main Menu after 3 seconds
 		ui.printout("\n");
