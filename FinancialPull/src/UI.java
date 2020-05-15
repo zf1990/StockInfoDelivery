@@ -115,7 +115,7 @@ public class UI
 		StdOut.println();
 		
 		//List of stock name
-		StdOut.print("List of interested stocks (separated with ,): ");
+		StdOut.print("List of interested stock symbols (separated with ,): ");
 		user_stock = StdIn.readLine();
 		
 		StdOut.println();
