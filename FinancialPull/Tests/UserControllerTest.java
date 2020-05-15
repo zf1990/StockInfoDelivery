@@ -95,7 +95,8 @@ class UserControllerTest {
 	@Test
 	void test_getting_stocks_and_sned_emails() { //Nothing really to test
 		UserController controller = new UserController();
-		controller.CheckStockAndSendEmail();
+		controller.getAllStocksInformation();
+		//controller.CheckStockAndSendEmail();
 	}
 
 }
